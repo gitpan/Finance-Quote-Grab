@@ -1,0 +1,49 @@
+This file contains message digests of all files listed in MANIFEST,
+signed via the Module::Signature module, version 0.55.
+
+To verify the content in this distribution, first make sure you have
+Module::Signature installed, then type:
+
+    % cpansign -v
+
+It will check each file's integrity, as well as the signature's
+validity.  If "==> Signature verified OK! <==" is not displayed,
+the distribution may already have been compromised, and you should
+not run its Makefile.PL or Build.PL.
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+SHA1 8624bcdae55baeef00cd11d5dfcfa60f68710a02 COPYING
+SHA1 4a205cdcb7df7eaee32e0822c0ca4d5c46d464fb Changes
+SHA1 78864d69849e476f846bd23e6812482dd2ccf8c4 MANIFEST
+SHA1 425c097560ef9bb1dbd6f681e1a7986c03d68f88 MANIFEST.SKIP
+SHA1 4ec485b3a49b3553de0b5bafd8453de884e92985 META.yml
+SHA1 e291ddb85c3405766bb08c8ff4a36fcaaedc2142 Makefile.PL
+SHA1 e948b212e1d7af0bd1ba3bd0bb71cb1f6613c999 README
+SHA1 9dc51f20bed307bc58895a5f16be9faec8bf5216 debian/changelog
+SHA1 ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4 debian/compat
+SHA1 b8e50e961c535f0381cc283f96f80b464acee3f1 debian/control
+SHA1 157b4a8161c69e518c7e86ba08fa1269541aefce debian/copyright
+SHA1 ec0682c1f734359373bf5577e8acf144bede9ac8 debian/rules
+SHA1 3913704c84ee3cd162408dea46260bdecd146fd3 debian/watch
+SHA1 880cfe59076ee177f318d0b7a7df63553186862a devel/offline.pl
+SHA1 3124e8087b0a2e4b97344373fe0cc678a0a9402b devel/run.pl
+SHA1 b5aca51b47ccb9b73e76b55a449f6ed1d4cf179a examples/dump.pl
+SHA1 daa3e9b284e6b7d49c3a0a84ab0e43ba11bbf2ba lib/Finance/Quote/Casablanca.pm
+SHA1 44af8b5048c6cdbbcac51a743426b9ec554ae7b0 lib/Finance/Quote/MLC.pm
+SHA1 d39cd433fec72faae2e496202c5ad4bb2dfbb5df lib/Finance/Quote/RBA.pm
+SHA1 4e343608834cc334c282e8aac763f04766da6e1f t/0-META-read.t
+SHA1 c2d28b665a07a9afb22d4736ae038a0a81701b51 t/0-Test-Pod.t
+SHA1 1ca294949007397f7928e494900d203365bb41f6 t/0-Test-YAML-Meta.t
+SHA1 b6870fc727a6b07994e8f6373d345291e5039bf0 t/Casablanca.t
+SHA1 f35eec70bcf6ecd7afe9dbe36b9d4aa04838254b t/MLC.t
+SHA1 16d9b50a853ea9236bbf4e1ca4a891b74d006251 t/RBA.t
+SHA1 56da0956e99b034fb1e07b8591b776c7595a1256 t/fields-pod.t
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.9 (GNU/Linux)
+
+iD8DBQFKMF1LLFMCIV9q3ToRAtECAJ4teXauJaCpEvXnLZdGVKJ/4Ks9ugCfTmsD
+IyadiCdnWdCrDpPSKmNVGX4=
+=7d2S
+-----END PGP SIGNATURE-----
