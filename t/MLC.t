@@ -22,24 +22,30 @@ use strict;
 use warnings;
 use Finance::Quote::MLC;
 
-use Test::More tests => 8;
+use Test::More tests => 9;
 
-my $want_version = 1;
-ok ($Finance::Quote::MLC::VERSION >= $want_version,
-    'VERSION variable');
-ok (Finance::Quote::MLC->VERSION  >= $want_version,
-    'VERSION method');
-ok (eval { Finance::Quote::MLC->VERSION($want_version); 1 },
-    "VERSION class check $want_version");
-ok (! eval { Finance::Quote::MLC->VERSION($want_version + 1000); 1 },
-    "VERSION class check " . ($want_version + 1000));
+SKIP: { eval 'use Test::NoWarnings; 1'
+          or skip 'Test::NoWarnings not available', 1; }
+
+my $want_version = 2;
+cmp_ok ($Finance::Quote::MLC::VERSION, '>=', $want_version,
+        'VERSION variable');
+cmp_ok (Finance::Quote::MLC->VERSION,  '>=', $want_version,
+        'VERSION class method');
+{ ok (eval { Finance::Quote::MLC->VERSION($want_version); 1 },
+      "VERSION class check $want_version");
+  my $check_version = $want_version + 1000;
+  ok (! eval { Finance::Quote::MLC->VERSION($check_version); 1 },
+      "VERSION class check $check_version");
+}
+
 
 #------------------------------------------------------------------------------
 # symbol_to_fund_and_product()
 
 foreach my $elem (['Foo Bar,Quux Xyzzy', 'Foo Bar', 'Quux Xyzzy'],
                   # missing product is invalid, but see it splits ok
-                  ['Foo Bar', 'Foo Bar', '' ], 
+                  ['Foo Bar', 'Foo Bar', ''],
                  ) {
   my ($symbol, $want_fund, $want_product) = @$elem;
   my ($got_fund, $got_product)

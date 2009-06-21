@@ -22,19 +22,24 @@ use strict;
 use warnings;
 use Finance::Quote::RBA;
 
-use Test::More tests => 22;
+use Test::More tests => 23;
 
 ## no critic (ProtectPrivateSubs)
 
-my $want_version = 1;
-ok ($Finance::Quote::RBA::VERSION >= $want_version,
-    'VERSION variable');
-ok (Finance::Quote::RBA->VERSION  >= $want_version,
-    'VERSION method');
-ok (eval { Finance::Quote::RBA->VERSION($want_version); 1 },
-    "VERSION class check $want_version");
-ok (! eval { Finance::Quote::RBA->VERSION($want_version + 1000); 1 },
-    "VERSION class check " . ($want_version + 1000));
+SKIP: { eval 'use Test::NoWarnings; 1'
+          or skip 'Test::NoWarnings not available', 1; }
+
+my $want_version = 2;
+cmp_ok ($Finance::Quote::RBA::VERSION, '>=', $want_version,
+        'VERSION variable');
+cmp_ok (Finance::Quote::RBA->VERSION,  '>=', $want_version,
+        'VERSION class method');
+{ ok (eval { Finance::Quote::RBA->VERSION($want_version); 1 },
+      "VERSION class check $want_version");
+  my $check_version = $want_version + 1000;
+  ok (! eval { Finance::Quote::RBA->VERSION($check_version); 1 },
+      "VERSION class check $check_version");
+}
 
 #------------------------------------------------------------------------------
 # _name_extract_time

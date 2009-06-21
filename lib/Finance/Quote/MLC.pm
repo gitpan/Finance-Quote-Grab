@@ -18,10 +18,9 @@
 package Finance::Quote::MLC;
 use strict;
 use warnings;
-use Date::Calc;
 
 use vars qw($VERSION);
-$VERSION = 1;
+$VERSION = 2;
 
 use constant DEBUG => 0;
 

@@ -18,6 +18,9 @@
 # with Finance-Quote-Grab.  If not, see <http://www.gnu.org/licenses/>.
 
 
+# Check that the supported fields described in each pod matches what the
+# code says.
+
 package main;
 use 5.005;
 use strict;
@@ -31,7 +34,10 @@ BEGIN {
   eval { require Pod::Parser }
     or plan skip_all => "Pod::Parser not available -- $@";
 }
-plan tests => 3;
+plan tests => 4;
+
+SKIP: { eval 'use Test::NoWarnings; 1'
+          or skip 'Test::NoWarnings not available', 1; }
 
 use constant DEBUG => 0;
 

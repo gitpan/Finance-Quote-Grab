@@ -35,12 +35,14 @@ WriteMakefile
 
                     # version 5.814 for HTTP::Request::accept_decodable()
                     'LWP' => '5.814',
-                    # part of LWP, but used explicitly, so name it
-                    'URI::Escape' => 0,
+                    # parts of LWP, but used explicitly, so name them
+                    'HTTP::Request'  => 0,
+                    'HTTP::Response' => 0,
+                    'URI::Escape'    => 0,
 
-                    'File::Spec' => 0,
                     'List::Util' => 0,
                     'Test::More' => 0,
+                    'warnings'   => 0,
                    },
 
    AUTHOR       => 'Kevin Ryde <user42@zip.com.au>',
@@ -54,6 +56,8 @@ optional_features:
         requires:
             Pod::Parser: 0
             Test::Pod: 0
+            Test::NoWarnings: 0
+            Parse::CPAN::Meta: 0
             Test::YAML::Meta: 0
             YAML: 0
             YAML::Syck: 0

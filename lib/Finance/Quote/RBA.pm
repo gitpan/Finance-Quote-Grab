@@ -22,7 +22,7 @@ use warnings;
 use List::Util;
 
 use vars qw($VERSION %name_to_symbol);
-$VERSION = 1;
+$VERSION = 2;
 
 use constant DEBUG => 0;
 

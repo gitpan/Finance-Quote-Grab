@@ -20,7 +20,7 @@ use strict;
 use warnings;
 
 use vars qw($VERSION %label_to_field);
-$VERSION = 1;
+$VERSION = 2;
 
 use constant DEBUG => 0;
 
