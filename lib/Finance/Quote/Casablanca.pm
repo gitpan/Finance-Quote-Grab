@@ -20,7 +20,7 @@ use strict;
 use warnings;
 
 use vars qw($VERSION %label_to_field);
-$VERSION = 2;
+$VERSION = 3;
 
 use constant DEBUG => 0;
 
@@ -137,6 +137,9 @@ sub casablanca_quotes {
                    'payout(en%)'      => 'payout_percent',
                    'dividendyield(%)' => 'div_yield',
                    'earningpershare'  => 'eps',
+
+                   # empty label
+                   '' => undef,
                   );
 
 # store to hashref $quotes for $symbol based on HTTP::Response in $resp
@@ -155,10 +158,7 @@ sub resp_to_quotes {
     $quotes->{$symbol,'errormsg'} = $resp->status_line;
     return;
   }
-  # &nbsp; latin-1 non-breaking space gets here as \x{A0} under Content-Type
-  # text/html.  Or "utf8::upgrade($content)" can ensure \s matches nbsp, but
-  # needs new enough perl ...
-  $content =~ s/\240/ /g;
+  $content =~ tr/\240/ /;
 
   if ($content =~ /Pas de r.sultat/) {
     $quotes->{$symbol,'success'}  = 0;
@@ -213,8 +213,9 @@ sub resp_to_quotes {
         my $field = $label_to_field{$label} or next;
 
         my $value = $row->[$i+1];
-        $value =~ s/\s//g; # whitespace leading, trailing, and thousands sep
-        $value =~ tr/,/./; # comma for decimal point
+        $value =~ tr/\240/ /; # &nbsp; converted by TableExtract HTML::Parser
+        $value =~ s/\s//g;    # whitespace leading, trailing, and thousands sep
+        $value =~ tr/,/./;    # comma for decimal point
         if ($value eq '-') { $value = ''; }  # '-' when no value
 
         $quotes->{$symbol,$field} = $value;
@@ -266,6 +267,8 @@ Finance::Quote::Casablanca - download Casablanca Stock Exchange quotes
 
 =head1 SYNOPSIS
 
+=for Finance_Quote_Grab symbols MNG BCE
+
  use Finance::Quote;
  my $fq = Finance::Quote->new ('-defaults', 'Casablanca');
  my %quotes = $fq->fetch('casablanca','MNG','BCE');
@@ -276,20 +279,24 @@ This module downloads stock quotes from the Casablanca Stock Exchange,
 
 =over 4
 
-L<http://www.casablanca-bourse.com>
+http://www.casablanca-bourse.com
 
 =back
 
 Using pages like,
 
+=for Finance_Quote_Grab symbols MNG
+
 =over 4
 
-L<http://www.casablanca-bourse.com/cgi/ASP/Donnees_Valeur/anglais/Donnes_valeurs.asp?ticker_valeur=MNG>
+http://www.casablanca-bourse.com/cgi/ASP/Donnees_Valeur/anglais/Donnes_valeurs.asp?ticker_valeur=MNG
 
 =back
 
 The web site terms can be found at the end of the home page.  As of June
-2009 reproduction of information is for personal private use.
+2009 reproduction of information is for personal private use.  It's your
+responsibility to ensure your use of this module complies with current and
+future terms.
 
 Quotes are delayed by 20 minutes.
 
@@ -297,7 +304,7 @@ Quotes are delayed by 20 minutes.
 
 The following standard F-Q fields are available
 
-=for Finance_Quote_Grab standard_fields flowed
+=for Finance_Quote_Grab fields flowed standard
 
     date isodate name currency
     bid ask
@@ -308,12 +315,12 @@ The following standard F-Q fields are available
     cap
     method source success errormsg
 
-C<ex_div> is in ISO YYYY-MM-DD format, or in the current implementation it's
-omitted from the return if there's no dividend at all.
+C<ex_div> is in ISO YYYY-MM-DD format, or if no dividend at all then the
+field is omitted.
 
 Plus the following extra fields
 
-=for Finance_Quote_Grab extra_fields table
+=for Finance_Quote_Grab fields table extra
 
     bid_quantity      number of shares at the bid
     ask_quantity      number of shares offered at the ask
@@ -329,19 +336,19 @@ Plus the following extra fields
 C<cap> (market capitalization) is C<last> times C<shares_on_issue>.
 C<net_profit> is C<eps> times C<shares_on_issue>.
 
-C<dollar_volume_both_sides> is so named since it seems to add both buyer's
-dollar value and seller's dollar value, ie. it's roughly "2 * last *
+C<dollar_volume_both_sides> is so named since it seems to add both the
+buyer's dollar value and seller's dollar value, ie. roughly "2 * last *
 volume".
 
 =head1 SEE ALSO
 
 L<Finance::Quote>, L<LWP>
 
-Casablanca Stock Exchange web site L<http://www.casablanca-bourse.com>
+Casablanca Stock Exchange web site http://www.casablanca-bourse.com
 
 =head1 HOME PAGE
 
-L<http://www.geocities.com/user42_kevin/finance-quote-grab/>
+http://user42.tuxfamily.org/finance-quote-grab/index.html
 
 =head1 LICENCE
 
@@ -359,6 +366,6 @@ more details.
 
 You should have received a copy of the GNU General Public License along with
 Finance-Quote-Grab; see the file F<COPYING>.  If not, see
-L<http://www.gnu.org/licenses/>.
+<http://www.gnu.org/licenses/>.
 
 =cut

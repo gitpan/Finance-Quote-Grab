@@ -25,8 +25,8 @@ Section: perl
 Priority: optional
 Build-Depends: cdbs, debhelper (>= 5)
 Maintainer: Kevin Ryde <user42@zip.com.au>
-Standards-Version: 3.8.2
-Homepage: http://www.geocities.com/user42_kevin/finance-quote-grab/index.html
+Standards-Version: 3.8.3
+Homepage: http://user42.tuxfamily.org/finance-quote-grab/index.html
 Bugs: mailto:user42@zip.com.au
 
 Package: libfinance-quote-grab-perl

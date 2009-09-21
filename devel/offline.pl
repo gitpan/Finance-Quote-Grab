@@ -29,6 +29,66 @@ my $progname = $FindBin::Script;
   require HTTP::Request;
   require HTTP::Response;
   require Perl6::Slurp;
+  my $symbol = 'Property Securities Fund,MasterKey Superannuation (Gold Star)';
+
+  my $req = HTTP::Request->new();
+  $req->uri('...');
+
+  my $resp = HTTP::Response->new;
+  $resp->request ($req);
+  my $topdir = File::Spec->catdir ($FindBin::Bin, File::Spec->updir);
+  my $content = Perl6::Slurp::slurp
+    (File::Spec->catfile ($topdir, 'samples', 'mlc',
+                          'mlc.data'
+                          # 'quote.html'
+                         ));
+  $resp->content($content);
+  $resp->content_type('text/html');
+  $resp->{'_rc'} = 200;
+
+  require Finance::Quote;
+  my $fq = Finance::Quote->new ('MLC');
+  my %quotes;
+  Finance::Quote::MLC::resp_to_quotes ($fq, $resp, \%quotes, $symbol);
+
+  require Data::Dumper;
+  print Data::Dumper->new([\%quotes],['quotes'])->Sortkeys(1)->Dump;
+  exit 0;
+}
+
+{
+  require HTTP::Request;
+  require HTTP::Response;
+  require Perl6::Slurp;
+  my @symbol_list = ('MWZ9');
+
+  my $req = HTTP::Request->new();
+  $req->uri('...');
+
+  my $resp = HTTP::Response->new;
+  $resp->request ($req);
+  my $topdir = File::Spec->catdir ($FindBin::Bin, File::Spec->updir);
+  my $content = Perl6::Slurp::slurp
+    (File::Spec->catfile ($topdir, 'samples', 'mgex',
+                          'wquotes_js.js'));
+  $resp->content($content);
+  $resp->content_type('text/html');
+  $resp->{'_rc'} = 200;
+
+  my %quotes;
+  require Finance::Quote;
+  my $fq = Finance::Quote->new ('MGEX');
+  Finance::Quote::MGEX::resp_to_quotes ($fq, $resp, \%quotes, \@symbol_list);
+
+  require Data::Dumper;
+  print Data::Dumper->new([\%quotes],['quotes'])->Sortkeys(1)->Dump;
+  exit 0;
+}
+
+{
+  require HTTP::Request;
+  require HTTP::Response;
+  require Perl6::Slurp;
   my $symbol = 'MNG';
 
   my $req = HTTP::Request->new();
@@ -83,34 +143,4 @@ my $progname = $FindBin::Script;
   exit 0;
 }
 
-{
-  require HTTP::Request;
-  require HTTP::Response;
-  require Perl6::Slurp;
-  my $symbol = 'Property Securities Fund,MasterKey Superannuation (Gold Star)';
-
-  my $req = HTTP::Request->new();
-  $req->uri('...');
-
-  my $resp = HTTP::Response->new;
-  $resp->request ($req);
-  my $topdir = File::Spec->catdir ($FindBin::Bin, File::Spec->updir);
-  my $content = Perl6::Slurp::slurp
-    (File::Spec->catfile ($topdir, 'samples', 'mlc',
-                          'mlc.data'
-                          # 'quote.html'
-                         ));
-  $resp->content($content);
-  $resp->content_type('text/html');
-  $resp->{'_rc'} = 200;
-
-  require Finance::Quote;
-  my $fq = Finance::Quote->new ('MLC');
-  my %quotes;
-  Finance::Quote::MLC::resp_to_quotes ($fq, $resp, \%quotes, $symbol);
-
-  require Data::Dumper;
-  print Data::Dumper->new([\%quotes],['quotes'])->Sortkeys(1)->Dump;
-  exit 0;
-}
 

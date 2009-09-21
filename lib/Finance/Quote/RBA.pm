@@ -22,7 +22,7 @@ use warnings;
 use List::Util;
 
 use vars qw($VERSION %name_to_symbol);
-$VERSION = 2;
+$VERSION = 3;
 
 use constant DEBUG => 0;
 
@@ -212,6 +212,8 @@ Finance::Quote::RBA - download Reserve Bank of Australia currency rates
 
 =head1 SYNOPSIS
 
+=for Finance_Quote_Grab symbols AUDGBP AUDUSD
+
  use Finance::Quote;
  $q = Finance::Quote->new ('RBA');
  %rates = $q->fetch ('rba', 'AUDGBP', 'AUDUSD');
@@ -223,7 +225,7 @@ Reserve Bank of Australia,
 
 =over 4
 
-L<http://www.rba.gov.au/>
+http://www.rba.gov.au/
 
 =back
 
@@ -231,15 +233,15 @@ using the page
 
 =over 4
 
-L<http://www.rba.gov.au/Statistics/exchange_rates.html>
+http://www.rba.gov.au/Statistics/exchange_rates.html
 
 =back
 
-As of June 2009 the web site terms of use set out under
+As of June 2009 the web site terms of use,
 
 =over 4
 
-L<http://www.rba.gov.au/Copyright/index.html>
+http://www.rba.gov.au/Copyright/index.html
 
 =back
 
@@ -250,8 +252,9 @@ ensure your use of this module complies with current and future terms.
 
 =head2 Symbols
 
-The symbols used are "AUDXXX" where XXX is the other currency.  The
-following are available
+The symbols used are "AUDXXX" where XXX is the other currency.  Each is the
+value of 1 Australian dollar in the other currency.  The following symbols
+are available
 
     AUDCNY    Chinese renminbi
     AUDEUR    Euro
@@ -274,14 +277,14 @@ currencies.
     AUDTWI    Trade Weighted Index
     AUDSDR    Special Drawing Right
 
-The AUD in each is a bit redundant, but it's in the style of Yahoo Finance
+The "AUD" in each is a bit redundant, but it's in the style of Yahoo Finance
 and makes it clear which way around the rate is expressed.
 
 =head2 Fields
 
 The following standard F-Q fields are returned
 
-=for Finance_Quote_Grab standard_fields flowed
+=for Finance_Quote_Grab fields flowed standard
 
     date isodate name currency
     last close
@@ -289,7 +292,7 @@ The following standard F-Q fields are returned
 
 Plus the following extras
 
-=for Finance_Quote_Grab extra_fields table
+=for Finance_Quote_Grab fields table extra
 
     time              ISO string "HH:MM"
     copyright_url
@@ -298,11 +301,11 @@ C<time> is always "16:00", ie. 4pm, currently.  The bank publishes TWI
 (trade weighted index) values for 10am and Noon too, but not until the end
 of the day when the 4pm value is the latest.
 
-C<currency> is the target cross, since prices are the value of an Australian
-dollar in the respective currency.  For example in "AUDUSD" it's "USD".
-C<currency> is omitted for "AUDTWI" since "TWI" is probably not a defined
-international currency code.  But it is returned for "AUDSDR", the IMF
-special drawing right basket.
+C<currency> is the other currency, since prices are the value of an
+Australian dollar in the respective currency.  For example in "AUDUSD" it's
+"USD".  C<currency> is omitted for "AUDTWI" since "TWI" is probably not a
+defined international currency code.  But it is returned for "AUDSDR", the
+IMF special drawing right basket.
 
 =head1 OTHER NOTES
 
@@ -318,11 +321,11 @@ perhaps allow a temporary fix externally).
 
 L<Finance::Quote>, L<LWP>
 
-RBA website L<http://www.rba.gov.au/>
+RBA website http://www.rba.gov.au/
 
 =head1 HOME PAGE
 
-L<http://www.geocities.com/user42_kevin/finance-quote-grab/>
+http://user42.tuxfamily.org/finance-quote-grab/index.html
 
 =head1 LICENCE
 
@@ -340,6 +343,6 @@ more details.
 
 You should have received a copy of the GNU General Public License along with
 Finance-Quote-Grab; see the file F<COPYING>.  If not, see
-L<http://www.gnu.org/licenses/>.
+<http://www.gnu.org/licenses/>.
 
 =cut

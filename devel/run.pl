@@ -29,6 +29,11 @@ my $method;
 my $module;
 my @symbols;
 
+if (0) {
+  $method = 'mgex';
+  $module = 'MGEX';
+  @symbols = ('ICMWZ09');
+}
 if (1) {
   $method = 'mlc';
   $module = 'MLC';
@@ -37,7 +42,8 @@ if (1) {
 if (0) {
   $method = 'casablanca';
   $module = 'Casablanca';
-  @symbols = ('MNG', 'BCE');
+  # @symbols = ('MNG', 'BCE');
+  @symbols = ('BCE');
 }
 if (0) {
   $method = 'rba';

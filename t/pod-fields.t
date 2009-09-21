@@ -21,7 +21,6 @@
 # Check that the supported fields described in each pod matches what the
 # code says.
 
-package main;
 use 5.005;
 use strict;
 use warnings;
@@ -42,19 +41,23 @@ SKIP: { eval 'use Test::NoWarnings; 1'
 use constant DEBUG => 0;
 
 
+require FindBin;
+my $t_lib_dir = File::Spec->catdir ($FindBin::Bin, 'lib');
+unshift @INC, $t_lib_dir;
+require MyPodParser;
+
 my $toplevel_dir = File::Spec->catdir ($FindBin::Bin, File::Spec->updir);
 my $manifest_file = File::Spec->catfile ($toplevel_dir, 'MANIFEST');
 my $manifest = ExtUtils::Manifest::maniread ($manifest_file);
 
-my @check_files = grep {m{^lib/}} keys %$manifest;
-if (DEBUG) { diag "check_files: ", explain \@check_files; }
-
+my @check_files = grep {m{^lib/.*\.pm$}} keys %$manifest;
 foreach my $filename (@check_files) {
   check_file ($filename);
 }
 
 sub check_file {
   my ($filename) = @_;
+  diag "check_file: $filename";
 
   my $class = $filename;
   $class =~ s{^lib/}{};
@@ -63,7 +66,7 @@ sub check_file {
   if (DEBUG) { diag "check_file: $filename $class"; }
 
   $filename = File::Spec->rel2abs ($filename, $toplevel_dir);
-  my $parser = MyParser->new;
+  my $parser = MyPodParser->new;
   $parser->parse_from_file ($filename);
   my $pod_fields = $parser->fields_found;
 
@@ -82,61 +85,5 @@ sub check_file {
                "pod vs code fields, $filename");
   }
 }
-
-
-package MyParser;
-use strict;
-use warnings;
-use Carp;
-use FindBin;
-use base 'Pod::Parser';
-
-use constant DEBUG => 0;
-
-sub command {
-  my $self = shift;
-  my ($command, $text, $line_num, $pod_para) = @_;
-  if (DEBUG) { print "$command -- $text"; }
-
-  if ($command eq 'for' && $text =~ /^\s*Finance_Quote_Grab\s+(.*)/) {
-    ($self->{'fields_type'}, $self->{'parse_type'}) = split /\s+/, $1;
-  }
-}
-
-sub verbatim {
-  my ($self, $text, $line_num, $pod_para) = @_;
-
-  if (my $fields_type = delete $self->{'fields_type'}) {
-    if (DEBUG) { print "$self->{'parse_type'} -- $text\n"; }
-
-    my @fields;
-    if ($self->{'parse_type'} eq 'flowed') {
-      $text =~ s/^\s+//;
-      @fields = split /\s+/, $text;
-
-    } elsif ($self->{'parse_type'} eq 'table') {
-      while ($text =~ m{^\s*(\w+)}mg) {
-        push @fields, $1;
-      }
-    }
-    @fields or die "Oops, no fields recognised -- $text";
-    $self->{$fields_type} = \@fields;
-    push @{$self->{'fields'}}, @fields;
-  }
-}
-
-sub textblock {
-  my ($self) = @_;
-  if ($self->{'fields_type'}) {
-    croak "Oops, expected verbatim paragraph after =for Finance_Quote_Grab";
-  }
-}
-
-# return arrayref of field names found in the pod
-sub fields_found {
-  my ($self) = @_;
-  return $self->{'fields'} || croak "No fields found";
-}
-
 
 exit 0;

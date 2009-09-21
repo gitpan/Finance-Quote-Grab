@@ -17,6 +17,10 @@ with Finance-Quote-Grab.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
+Version 3,  September 2009
+    - Casablanca - watch out for &nbsp; converted to \240 by the HTML parser
+    - fix example program on MLC symbols with parens
+
 Version 2,  June 2009
     - drop stray Date::Calc from MLC
 

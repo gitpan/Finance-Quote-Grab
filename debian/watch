@@ -23,4 +23,5 @@
 # test with: uscan --report --verbose --watchfile=debian/watch
 
 version=3
-http://www.geocities.com/user42_kevin/finance-quote-grab/Finance-Quote-Grab-([0-9]+)\.tgz
+http://user42.tuxfamily.org/finance-quote-grab/index.html \
+	.*/Finance-Quote-Grab-([0-9]+)\.tar\.gz

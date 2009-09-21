@@ -21,10 +21,13 @@
 # Usage: ./dump.pl [-method] SYMBOL SYMBOL ...
 #
 # Print a dump of Finance::Quote prices downloaded for the given symbols.
-# Eg.
+# The default is a sample, or a method and symbols can be given, like
 #
-#    ./dump.pl -MLC 'MLC MasterKey Horizon 1 - Bond Portfolio,MasterKey Allocated Pension (Five Star)'
-#    ./dump.pl -RBA AUDUSD AUDTWI
+#    ./dump.pl -casablanca BCE
+#
+#    ./dump.pl -mlc 'MLC MasterKey Horizon 1 - Bond Portfolio,MasterKey Allocated Pension (Five Star)'
+#
+#    ./dump.pl -rba AUDUSD AUDTWI
 
 use strict;
 use warnings;
@@ -32,8 +35,7 @@ use Finance::Quote;
 
 my $method = 'casablanca';
 if (@ARGV && $ARGV[0] =~ /^-/) {
-  $method = substr $ARGV[0], 1;
-  shift @ARGV;
+  $method = substr (shift @ARGV, 1);
 }
 
 my @symbols = @ARGV;
@@ -41,19 +43,24 @@ if (! @symbols) {
   @symbols = ('MNG');
 }
 
+# the Finance::Quote POD explains how to set FQ_LOAD_QUOTELET to load add-on
+# modules in the defaults
+#
 my $q = Finance::Quote->new ('-defaults', 'Casablanca', 'MLC', 'RBA');
-my %rates = $q->fetch ($method, @symbols);
+my %quotes = $q->fetch ($method, @symbols);
 
 foreach my $symbol (@symbols) {
   print "Symbol: '$symbol'\n";
 
-  # keys have the $; separator like "$symbol$;last", match and strip the
-  # "$symbol$;" part
-  foreach my $key (sort grep /^$symbol$;/, keys %rates) {
-    my $showkey = $key;
-    $showkey =~ s/.*?$;//; # strip for display
+  foreach my $key (sort keys %quotes) {
+    #
+    # each key is the symbol and field with $; separator, like "$symbol$;last"
+    # so match and strip the "$symbol$;" part
+    #
+    next unless $key =~ /^\Q$symbol$;\E(.*)/;
+    my $field = $1;
 
-    printf "  %-14s '%s'\n", $showkey, $rates{$key};
+    printf "  %-14s '%s'\n", $field, $quotes{$key};
   }
 }
 

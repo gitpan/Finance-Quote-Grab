@@ -20,7 +20,7 @@ use strict;
 use warnings;
 
 use vars qw($VERSION);
-$VERSION = 2;
+$VERSION = 3;
 
 use constant DEBUG => 0;
 
@@ -209,7 +209,7 @@ This module downloads MLC fund quotes from
 
 =over 4
 
-L<http://www.mlc.com.au>
+http://www.mlc.com.au
 
 =back
 
@@ -217,15 +217,15 @@ under
 
 =over 4
 
-L<https://www.mlc.com.au/masterkeyWeb/execute/FramesetUnitPrices>
+https://www.mlc.com.au/masterkeyWeb/execute/FramesetUnitPrices
 
 =back
 
-As of June 2009 the web site terms of use set out under
+As of June 2009 the web site terms of use,
 
 =over 4
 
-L<http://www.mlc.com.au/mlc/im_considering_mlc/personal/footer_tools/advice_warning_and_disclaimer>
+http://www.mlc.com.au/mlc/im_considering_mlc/personal/footer_tools/advice_warning_and_disclaimer
 
 =back
 
@@ -236,22 +236,24 @@ complies with current and future terms.
 =head2 Symbols
 
 The symbols used are the fund name and product name with a comma, for
-instance
+example
+
+=for Finance_Quote_Grab symbols
 
     MLC MasterKey Horizon 1 - Bond Portfolio,MasterKey Allocated Pension (Five Star)
 
-This is a lot to type, but you can usually cut and past it from the web
-site.  The page source in the link above has them in this form.
+This is a lot to type, but you can usually cut and paste it from the web
+pages.  The page source in the link above has them in this form.
 
-The fund part is the investment, but there isn't a single price quote for
-it, the price varies with the product due to different fees etc subtracted
-in the different products.
+The fund part is the actual investment, but there isn't a single price quote
+for it, rater the price varies with the product due to different fees etc
+subtracted in the different products.
 
 =head2 Fields
 
 The following standard F-Q fields are available
 
-=for Finance_Quote_Grab standard_fields flowed
+=for Finance_Quote_Grab fields flowed standard
 
     date isodate name currency
     last close
@@ -259,24 +261,24 @@ The following standard F-Q fields are available
 
 Plus the following extras
 
-=for Finance_Quote_Grab extra_fields flowed
+=for Finance_Quote_Grab fields flowed extra
 
     copyright_url
 
 As of June 2009, prices are published some time in the afternoon of the
-following day, with Friday's prices some time Monday afternoon.  So the date
-is always yesterday or the day before yesterday.  The currency is always
-"AUD" Australian dollars.
+following business day (Friday's prices some time Monday afternoon).  So the
+date field is always yesterday or the day before yesterday.  The currency is
+always "AUD" Australian dollars.
 
 =head1 SEE ALSO
 
 L<Finance::Quote>, L<LWP>
 
-MLC web site L<http://www.mlc.com.au>
+MLC web site http://www.mlc.com.au
 
 =head1 HOME PAGE
 
-L<http://www.geocities.com/user42_kevin/finance-quote-grab/>
+http://user42.tuxfamily.org/finance-quote-grab/index.html
 
 =head1 LICENCE
 
@@ -294,6 +296,6 @@ more details.
 
 You should have received a copy of the GNU General Public License along with
 Finance-Quote-Grab; see the file F<COPYING>.  If not, see
-L<http://www.gnu.org/licenses/>.
+<http://www.gnu.org/licenses/>.
 
 =cut

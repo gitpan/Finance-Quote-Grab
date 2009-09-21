@@ -30,13 +30,14 @@
 # emacs autosave
 (^|/)#
 
-# own dists
+# own distdir
 ^[A-Za-z][A-Za-z0-9-_]*-\d+/
+# own dist files
 \.tar\.gz$
 \.deb$
 
 # ExtUtils::MakeMaker leaving Makefile.old
-# "myman" leaving MANIFEST.old
+# and "myman" leaving MANIFEST.old
 \.old$
 
 # built stuff
@@ -46,16 +47,47 @@
 ^TAGS$
 # MakeMaker 6.18 to 6.25, apparently
 ^blibdirs\.ts$
-# cdbs and debhelper
+
+# cdbs and debhelper built stuff
 ^debian/stamp-
 ^debian/.*\.log$
+
+# texinfo.tex temporaries
+\.(aux|cp|cps|fn|fns|ky|log|pg|toc|tp|tps|vr)$
+
+# xsub .c, .o, try not to exclude ordinary C files though, maybe ...
+#(^|/)[A-Z][A-Za-z0-9_]*\.c$
+(^|/[^Z])[^/]+\.c$
+\.o$
+\.bs$
+
+# built - configury
+^conftest
+^config\.h$
+
+# built - toplevel html pages
+^[a-zA-Z][^.]+\.html$
 
 # cpantesters reports
 ^msg\d*\.html$
 
-# my temporaries
+# inc/MyMakefileExtras.pm "diff-prev"
 ^diff\.tmp
+# inc/MyMakefileExtras.pm "lintian-source"
 ^temp-lintian
+
+
+# my dists
+^dist-deb
+^up$
+^c$
+
+# my special case pulp test build stuff
+devel/h2xs/TestConstFoo/
+
+# my special case mall executables
+devel/hblk
+devel/mallopt
 
 
 \.bak$
@@ -63,4 +95,5 @@
 ^misc
 ^maybe
 ^samples
-^dist-deb
+^samp
+^formats
