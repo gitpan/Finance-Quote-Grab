@@ -1,4 +1,4 @@
-# Copyright 2007, 2008, 2009 Kevin Ryde
+# Copyright 2007, 2008, 2009, 2010 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -20,9 +20,11 @@ package Finance::Quote::RBA;
 use strict;
 use warnings;
 use List::Util;
+use Scalar::Util;
+use Finance::Quote 1.15; # for isoTime()
 
 use vars qw($VERSION %name_to_symbol);
-$VERSION = 3;
+$VERSION = 4;
 
 use constant DEBUG => 0;
 
@@ -39,29 +41,10 @@ sub labels {
 }
 
 use constant EXCHANGE_RATES_URL =>
-  'http://www.rba.gov.au/Statistics/exchange_rates.html';
+  'http://www.rba.gov.au/statistics/frequency/exchange-rates.html';
 
 use constant COPYRIGHT_URL =>
-  'http://www.rba.gov.au/Copyright/index.html';
-
-# this is "our" vaguely in case you have to add something new or changed on
-# the RBA page ... as an undocumented feature though ...
-%name_to_symbol =
-  ('united states dollar'  => 'AUDUSD',
-   'japanese yen'          => 'AUDJPY',
-   'european euro'         => 'AUDEUR',
-   'south korean won'      => 'AUDKRW',
-   'new zealand dollar'    => 'AUDNZD',
-   'chinese renminbi'      => 'AUDCNY',
-   'uk pound sterling'     => 'AUDGBP',
-   'new taiwan dollar'     => 'AUDTWD',
-   'singapore dollar'      => 'AUDSGD',
-   'indonesian rupiah'     => 'AUDIDR',
-   'hong kong dollar'      => 'AUDHKD',
-   'malaysian ringgit'     => 'AUDMYR',
-   'swiss franc'           => 'AUDCHF',
-   'special drawing right' => 'AUDSDR',
-   'trade-weighted index'  => 'AUDTWI');
+  'http://www.rba.gov.au/copyright/index.html';
 
 sub rba_quotes {
   my ($fq, @symbol_list) = @_;
@@ -93,12 +76,15 @@ sub _parse {
     _errormsg ($quotes, $symbol_list, $resp->status_line);
     return;
   }
-  my $content = $resp->decoded_content (raise_error => 1);
+  my $content = $resp->decoded_content (raise_error => 1, charset => 'none');
+
+  # mung <tr id="USD"> to add <td>USD</td> so it appears in the TableExtract
+  $content =~ s{<tr>}{<tr><td></td>}ig;
+  $content =~ s{(<tr +id="([^"]*)">)}{$1<td>$2</td>}ig;
 
   require HTML::TableExtract;
   my $te = HTML::TableExtract->new
-    (headers => ['Click for earlier rates'],
-     keep_headers => 1,
+    (headers => ['Units of foreign currency per'],
      slice_columns => 0);
   $te->parse($content);
   my $ts = $te->first_table_found;
@@ -107,29 +93,27 @@ sub _parse {
     return;
   }
 
-  # Desired figures are in last column.
-  # But on a bank holiday a column will have "BANK HOLIDAY", one letter per
-  # row, so skip that if necessary, identified by the "B" in BANK in the
-  # first row.
-  my $col = $ts->columns - 1;
-  while ($ts->cell(1,$col) eq 'B') {
-    $col--;
-    if ($col < 0) {
-      _errormsg ($quotes, $symbol_list, 'oops, all "B" columns');
-      return;
+  # column of letters "P" "U" "B" "L" "I" "C" "H" "O" "L" "I" "D" "A" "Y"
+  # on a bank holiday -- skip those
+  my ($col, $prevcol);
+  for (my $i = $ts->columns - 1; $i >= 2; $i--) {
+    if (Scalar::Util::looks_like_number ($ts->cell (1, $i))) {
+      $col = $i;
+      last;
     }
   }
-
-  # second last column
-  my $prevcol = $col-1;
-  while ($ts->cell(1,$prevcol) eq 'B') {
-    $prevcol--;
-    if ($prevcol < 0) {
-      _errormsg ($quotes, $symbol_list, 'oops, all "B" columns');
-      return;
+  for (my $i = $col - 1; $i >= 2; $i--) {
+    if (Scalar::Util::looks_like_number ($ts->cell (1, $i))) {
+      $prevcol = $i;
+      last;
     }
   }
-  if (DEBUG) { print "  col=$col, prevcol=$prevcol\n"; }
+  if (DEBUG) { print "  col=",(defined $col ? $col : 'undef'),
+                 ", prevcol=",(defined $prevcol ? $prevcol : 'undef'),"\n"; }
+  if (! defined $col) {
+    _errormsg ($quotes, $symbol_list, 'No numeric columns found');
+    return;
+  }
 
   my $date = $ts->cell (0, $col);
 
@@ -138,21 +122,31 @@ sub _parse {
   my %seen_symbol;
 
   foreach my $row (@{$ts->rows()}) {
-    my $name = $row->[0];
-    ($name, my $time) = _name_extract_time ($name);
+    if (DEBUG) {
+      require Data::Dumper;
+      print Data::Dumper->new([$row],['row'])->Dump;
+    }
 
-    my $symbol = $name_to_symbol{lc $name};
-    if (! $symbol) { next; }  # unrecognised row
+    my $symbol = $row->[0];
+    $symbol or next;       # dates row, or no id="" in <tr>
+    $symbol =~ s/_.*//; # _4pm on TWI
+    $symbol = "AUD$symbol";
     if (! exists $want_symbol{$symbol}) { next; } # unwanted row
+
+    my $name   = $row->[1];
+    defined $name or next; # dates row
+    ($name, my $time) = _name_extract_time ($fq, $name);
 
     my $rate = $row->[$col];
     my $prev = $row->[$prevcol];
 
     $fq->store_date($quotes, $symbol, {eurodate => $date});
-    $quotes->{$symbol,'time'}  = $time;
-    $quotes->{$symbol,'name'}  = $name;
-    $quotes->{$symbol,'last'}  = $rate;
-    $quotes->{$symbol,'close'} = $prev;
+    if (defined $time) {
+      $quotes->{$symbol,'time'} = $time;
+    }
+    $quotes->{$symbol,'name'}   = $name;
+    $quotes->{$symbol,'last'}   = $rate;
+    $quotes->{$symbol,'close'}  = $prev;
     if ($symbol ne 'TWI') {
       $quotes->{$symbol,'currency'} = $symbol;
     }
@@ -163,6 +157,7 @@ sub _parse {
     # which is 16:00 instead of the 9:00 one
     $seen_symbol{$symbol} = 1;
   }
+
 
   delete @want_symbol{keys %seen_symbol}; # hash slice
   # any not seen
@@ -184,23 +179,15 @@ sub _errormsg {
 #     UK pound sterling
 #
 sub _name_extract_time {
-  my ($name) = @_;
+  my ($fq, $name) = @_;
 
-  my $time = 16;
-  if ($name =~ m/(.*?) +\(([0-9]+)am\)$/i) {
-    # 12am is 00:00, otherwise 1am -> 1:00 etc
-    $time = ($2 == 12 ? $2 - 12 : $2);
-    $name = $1;
-  } elsif ($name =~ m/(.*?) +\(Noon\)$/i) {
-    $time = 12;
-    $name = $1;
-  } elsif ($name =~ m/(.*?) +\(([0-9]+)pm\)$/i) {
-    # 12pm is 12:00, otherwise 1pm -> 13:00 etc
-    $time = ($2 == 12 ? $2 - 12 : $2) + 12;
-    $name = $1;
+  if ($name =~ m/(.*?) +\(Noon\)$/i) {
+    return ($1, '12:00');
+  } elsif ($name =~ m/(.*?) +\(([0-9]+)([ap]m)\)$/i) {
+    return ($1, $fq->isoTime("$2:00$3"));
+  } else {
+    return ($name, '16:00');
   }
-  $time = ($time % 24) . ':00';
-  return ($name, $time);
 }
 
 1;
@@ -210,9 +197,11 @@ __END__
 
 Finance::Quote::RBA - download Reserve Bank of Australia currency rates
 
-=head1 SYNOPSIS
+=for test_synopsis my ($q, %rates);
 
 =for Finance_Quote_Grab symbols AUDGBP AUDUSD
+
+=head1 SYNOPSIS
 
  use Finance::Quote;
  $q = Finance::Quote->new ('RBA');
@@ -233,7 +222,7 @@ using the page
 
 =over 4
 
-http://www.rba.gov.au/Statistics/exchange_rates.html
+http://www.rba.gov.au/statistics/frequency/exchange-rates.html
 
 =back
 
@@ -241,7 +230,7 @@ As of June 2009 the web site terms of use,
 
 =over 4
 
-http://www.rba.gov.au/Copyright/index.html
+http://www.rba.gov.au/copyright/index.html
 
 =back
 
@@ -253,22 +242,31 @@ ensure your use of this module complies with current and future terms.
 =head2 Symbols
 
 The symbols used are "AUDXXX" where XXX is the other currency.  Each is the
-value of 1 Australian dollar in the other currency.  The following symbols
-are available
+value of 1 Australian dollar in the other currency.  As of January 2010 the
+following symbols are available
 
-    AUDCNY    Chinese renminbi
-    AUDEUR    Euro
-    AUDJPY    Japanese yen
-    AUDHKD    Hong Kong dollar
-    AUDIDR    Indonesian rupiah
-    AUDMYR    Malaysian ringgit
-    AUDNZD    New Zealand dollar
-    AUDCHF    Swiss franc
-    AUDSGD    Singapore dollar
-    AUDKRW    South Korean won
-    AUDTWD    Taiwanese dollar
-    AUDGBP    British pound sterling
     AUDUSD    US dollar
+    AUDCNY    Chinese renminbi
+    AUDJPY    Japanese yen
+    AUDEUR    Euro
+    AUDKRW    South Korean won
+    AUDGBP    British pound sterling
+    AUDSGD    Singapore dollar
+    AUDINR    Indian rupee
+    AUDTHB    Thai baht
+    AUDNZD    New Zealand dollar
+    AUDTWD    Taiwanese dollar
+    AUDMYR    Malaysian ringgit
+    AUDIDR    Indonesian rupiah
+    AUDVND    Vietnamese dong
+    AUDAED    United Arab Emirates dirham
+    AUDPGK    Papua New Guinea kina
+    AUDHKD    Hong Kong dollar
+    AUDCAD    Canadian dollar
+    AUDZAR    South African rand
+    AUDSAR    Saudi Arabia riyal
+    AUDCHF    Swiss franc
+    AUDSEK    Swedish krona
 
 Plus the RBA's Trade Weighted Index for the Australian dollar, and the
 Australian dollar valued in the IMF's Special Drawing Right basket of
@@ -303,19 +301,17 @@ of the day when the 4pm value is the latest.
 
 C<currency> is the other currency, since prices are the value of an
 Australian dollar in the respective currency.  For example in "AUDUSD" it's
-"USD".  C<currency> is omitted for "AUDTWI" since "TWI" is probably not a
-defined international currency code.  But it is returned for "AUDSDR", the
-IMF special drawing right basket.
+"USD".  C<currency> is omitted for "AUDTWI" since "TWI" is not a defined
+international currency code.  But it is returned for "AUDSDR", the IMF
+special drawing right basket.
 
 =head1 OTHER NOTES
 
 Currency rates are downloaded just as "prices", there's no tie-in to the
 C<Finance::Quote> currency conversion feature.
 
-The currency names in the web page are hard coded in this module, so if it's
-extended or changed the code probably has to be updated (though the
-C<name_to_symbol> hash is a package variable as an undocumented way to
-perhaps allow a temporary fix externally).
+The exchange rates page above includes an RSS feed in "cb" central bank
+format, but it doesn't give previous day's rates for the F-Q "close" field.
 
 =head1 SEE ALSO
 
@@ -329,7 +325,7 @@ http://user42.tuxfamily.org/finance-quote-grab/index.html
 
 =head1 LICENCE
 
-Copyright 2007, 2008, 2009 Kevin Ryde
+Copyright 2007, 2008, 2009, 2010 Kevin Ryde
 
 Finance-Quote-Grab is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by the

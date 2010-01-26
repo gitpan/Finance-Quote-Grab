@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Copyright 2008, 2009 Kevin Ryde
+# Copyright 2008, 2009, 2010 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -24,6 +24,35 @@ use File::Spec;
 use FindBin;
 my $progname = $FindBin::Script;
 
+
+{
+  require HTTP::Request;
+  require HTTP::Response;
+  require Perl6::Slurp;
+  my $symbol = 'AUDTWI';
+
+  my $req = HTTP::Request->new();
+  $req->uri('...');
+
+  my $resp = HTTP::Response->new;
+  $resp->request ($req);
+  my $topdir = File::Spec->catdir ($FindBin::Bin, File::Spec->updir);
+  my $content = Perl6::Slurp::slurp
+    (File::Spec->catfile ($topdir, 'samples', 'rba',
+                          'exchange-rates.html.1'));
+  $resp->content($content);
+  $resp->content_type('text/html');
+  $resp->{'_rc'} = 200;
+
+  require Finance::Quote;
+  my $fq = Finance::Quote->new ('RBA');
+  my %quotes;
+  Finance::Quote::RBA::_parse ($fq, $resp, \%quotes, [$symbol]);
+
+  require Data::Dumper;
+  print Data::Dumper->new([\%quotes],['quotes'])->Sortkeys(1)->Dump;
+  exit 0;
+}
 
 {
   require HTTP::Request;
@@ -60,7 +89,8 @@ my $progname = $FindBin::Script;
   require HTTP::Request;
   require HTTP::Response;
   require Perl6::Slurp;
-  my @symbol_list = ('MWZ9');
+  # my @symbol_list = ('MWZ9'); my $filename = 'wquotes_js.js.1';
+  my @symbol_list = ('IHZ9'); my $filename = 'aquotes.htx.3';
 
   my $req = HTTP::Request->new();
   $req->uri('...');
@@ -69,8 +99,7 @@ my $progname = $FindBin::Script;
   $resp->request ($req);
   my $topdir = File::Spec->catdir ($FindBin::Bin, File::Spec->updir);
   my $content = Perl6::Slurp::slurp
-    (File::Spec->catfile ($topdir, 'samples', 'mgex',
-                          'wquotes_js.js'));
+    (File::Spec->catfile ($topdir, 'samples', 'mgex', $filename));
   $resp->content($content);
   $resp->content_type('text/html');
   $resp->{'_rc'} = 200;
@@ -84,6 +113,9 @@ my $progname = $FindBin::Script;
   print Data::Dumper->new([\%quotes],['quotes'])->Sortkeys(1)->Dump;
   exit 0;
 }
+
+
+
 
 {
   require HTTP::Request;
@@ -114,33 +146,5 @@ my $progname = $FindBin::Script;
   exit 0;
 }
 
-{
-  require HTTP::Request;
-  require HTTP::Response;
-  require Perl6::Slurp;
-  my $symbol = 'AUDTWI';
-
-  my $req = HTTP::Request->new();
-  $req->uri('...');
-
-  my $resp = HTTP::Response->new;
-  $resp->request ($req);
-  my $topdir = File::Spec->catdir ($FindBin::Bin, File::Spec->updir);
-  my $content = Perl6::Slurp::slurp
-    (File::Spec->catfile ($topdir, 'samples', 'rba',
-                          'exchange_rates.html'));
-  $resp->content($content);
-  $resp->content_type('text/html');
-  $resp->{'_rc'} = 200;
-
-  require Finance::Quote;
-  my $fq = Finance::Quote->new ('RBA');
-  my %quotes;
-  Finance::Quote::RBA::_parse ($fq, $resp, \%quotes, [$symbol]);
-
-  require Data::Dumper;
-  print Data::Dumper->new([\%quotes],['quotes'])->Sortkeys(1)->Dump;
-  exit 0;
-}
 
 

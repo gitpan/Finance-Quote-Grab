@@ -1,4 +1,4 @@
-# Copyright 2008, 2009 Kevin Ryde
+# Copyright 2008, 2009, 2010 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -16,9 +16,9 @@
 # with Finance-Quote-Grab.  If not, see <http://www.gnu.org/licenses/>.
 
 
-# Build-Depends could have the "maximum_tests" modules from
-# Makefile.PL for more tests, but they're only optional author tests
-# really and would just make the build tools drag in more stuff.
+# Build-Depends could have the "maximum_tests" modules from META.yml
+# for more tests, but they're optional author tests really and would
+# just make the build tools drag in more stuff.
 
 Source: libfinance-quote-grab-perl
 Section: perl
@@ -31,7 +31,7 @@ Bugs: mailto:user42@zip.com.au
 
 Package: libfinance-quote-grab-perl
 Architecture: all
-Depends: perl, libfinance-quote-perl, libhtml-tableextract-perl, libwww-perl (>= 5.814), liburi-perl, liblist-util-perl | perl-modules (>= 5.8), ${misc:Depends}
+Depends: perl, libfinance-quote-perl, libhtml-tableextract-perl, libwww-perl (>= 5.814), liburi-perl, libscalar-list-utils-perl | perl (>= 5.8), libwarnings-perl | perl-modules (>= 5.6), ${misc:Depends}
 Description: Download stock quotes from more places
  Finance-Quote-Grab extends Finance::Quote to download quotes from the
  following sources

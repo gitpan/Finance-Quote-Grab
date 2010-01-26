@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Copyright 2009 Kevin Ryde
+# Copyright 2009, 2010 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -30,11 +30,11 @@ use FindBin;
 use Finance::Quote;
 
 use Test::More;
-BEGIN {
-  # new in 5.6, so unless you've got it separately with 5.005
-  eval { require Pod::Parser }
-    or plan skip_all => "Pod::Parser not available -- $@";
-}
+
+# new in 5.6, so unless you've got it separately with 5.005
+eval { require Pod::Parser }
+  or plan skip_all => "Pod::Parser not available -- $@";
+
 plan tests => 1;
 
 # SKIP: { eval 'use Test::NoWarnings; 1'
@@ -55,7 +55,6 @@ my @check_files = grep {m{^lib/.*\.pm$}} keys %$manifest;
 if (DEBUG) { diag "check_files: ", explain \@check_files; }
 
 my %symbols;
-my $good = 1;
 foreach my $filename (@check_files) {
   my $class = $filename;
   $class =~ s{^lib/|\.pm$}{}g;
@@ -71,17 +70,23 @@ if (DEBUG) {
   diag "symbols ", explain \%symbols;
 }
 
+my $good;
+my $all_good = 1;
 foreach my $class (sort keys %symbols) {
+  $good = 1;
   download_symbols ($class, $symbols{$class});
+  if (! $good) {
+    $all_good = 0;
+  }
 }
-ok ($good);
+ok ($all_good);
 
 sub download_symbols {
   my ($class, $symbol_list) = @_;
   $class =~ m/([^:]+)$/ or die "Oops, class basename not matched";
   my $method = lc($1);
 
-  my $fq = Finance::Quote->new ('-defaults', 'Casablanca', 'MLC', 'RBA');
+  my $fq = Finance::Quote->new ('Casablanca', 'MLC', 'RBA');
   my %quotes = $fq->fetch ($method, @$symbol_list);
   if (DEBUG) { diag explain \%quotes }
 
@@ -109,7 +114,7 @@ sub download_symbols {
 
   foreach my $symbol (@$symbol_list) {
     if (! $quotes{$symbol,'success'}) {
-      diag "$symbol no 'success'";
+      diag "$symbol no 'success' field";
       $good = 0;
     }
     if ($quotes{$symbol,'method'} ne $method) {
@@ -171,6 +176,11 @@ sub download_symbols {
         $good = 0;
       }
     }
+  }
+
+  if (! $good) {
+    require Data::Dumper;
+    print Data::Dumper->new([\%quotes],['quotes'])->Useqq(1)->Dump;
   }
 }
 

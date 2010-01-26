@@ -6,10 +6,13 @@ debian/control
 debian/copyright
 debian/rules
 debian/watch
+devel/cb-to-fq.pl
 devel/download.t
 devel/offline.pl
+devel/rba-old.pl
 devel/run.pl
 examples/dump.pl
+inc/my_pod2html
 inc/MyMakeMakerExtras.pm
 lib/Finance/Quote/Casablanca.pm
 lib/Finance/Quote/MLC.pm
@@ -22,6 +25,8 @@ SIGNATURE
 t/0-META-read.t
 t/0-Test-DistManifest.t
 t/0-Test-Pod.t
+t/0-Test-Synopsis.t
+t/0-Test-YAML-Meta.t
 t/Casablanca.t
 t/lib/MyPodParser.pm
 t/MLC.t

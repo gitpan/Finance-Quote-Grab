@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.55.
+signed via the Module::Signature module, version 0.61.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -14,39 +14,44 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 8624bcdae55baeef00cd11d5dfcfa60f68710a02 COPYING
-SHA1 7d69cd32734a0a0b3bb8bf91f8f06ea973b41256 Changes
-SHA1 ee112ba3b162e3be46fdda1d57b379aea46fdf6c MANIFEST
-SHA1 13c1f4ba3cd5cd6a7fff24c88cb5453250289bdb MANIFEST.SKIP
-SHA1 089e49c7afef5e32904f5d32a8997f600ca08c97 META.yml
-SHA1 db050adc11c801ffff9bec5c3115f16d5298fd76 Makefile.PL
+SHA1 842745cb706f8f2126506f544492f7a80dbe29b3 COPYING
+SHA1 64e6e34e96e93caf55819aaa87f33416ded1125f Changes
+SHA1 33216b4804429a5d5db7c9bd691ab268097c123a MANIFEST
+SHA1 a5702ed4c66c943b47354756b340812302d15e6f MANIFEST.SKIP
+SHA1 31a8ebe2f9e5852a9e8b9f1a881885ba92daa563 META.yml
+SHA1 4968eb27d70a84186e7120d200937b84b5438846 Makefile.PL
 SHA1 0995abba740a8cee46feca16613099676c09ef06 README
-SHA1 74576a3ca4f4df869e7e12b46b02f735ba36c725 debian/changelog
+SHA1 b0ddcff725778c8dbe1d5599ec968bab9ee0c113 debian/changelog
 SHA1 ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4 debian/compat
-SHA1 172130f4f73e6b74e8922202168601d214229880 debian/control
-SHA1 e3fe9b2e89a7eb3082c89d3c776f3a33207573c6 debian/copyright
+SHA1 a5a00103928eb17c8ebe6e4302b0ed02418cd075 debian/control
+SHA1 44a06908a8321be59990319c98d7f5a6b649ede2 debian/copyright
 SHA1 ec0682c1f734359373bf5577e8acf144bede9ac8 debian/rules
 SHA1 9bff11cdc5830f59d694ab52211973776ca68995 debian/watch
-SHA1 96dfd17a50c27a014e567d8ba8b8a5ef37f0c7ee devel/download.t
-SHA1 47d979007a6a498dd7565472d6428aa5e5fadcd3 devel/offline.pl
-SHA1 9994f659714429a51d7deab1e0fc2e9b690f6525 devel/run.pl
+SHA1 781e2d9585f28c565ddc7cbf6611c90d3a6a76e2 devel/cb-to-fq.pl
+SHA1 d7b4c8cce3e88f6c0083c476a14994ac26e9b2cc devel/download.t
+SHA1 4498e71b55276a84719e35ef66981f5054a590fa devel/offline.pl
+SHA1 0385a487352954625863ae85576c2ebb2682a04f devel/rba-old.pl
+SHA1 a085f83e129725e422945e5f87bf0f28f232a68d devel/run.pl
 SHA1 4cccedff0c93d0b0213609bae9f7e00b89a8c7e6 examples/dump.pl
-SHA1 49f8328962d1269cf94c57f7bf43bf04efd9e7a7 inc/MyMakeMakerExtras.pm
-SHA1 dc4601847eb16ea2f3c51572bb57fddb667595f1 lib/Finance/Quote/Casablanca.pm
-SHA1 5bc4fe97a4e49221fb096cb4168f9c3b7f1934fd lib/Finance/Quote/MLC.pm
-SHA1 acede290492c9e5b8397f736a66ae4fc17e310d5 lib/Finance/Quote/RBA.pm
-SHA1 83baa00317b90a9bdd5da554e3d4a8a2c4272426 t/0-META-read.t
+SHA1 04b47938da4980ca0da3d5560d7826ef3139e861 inc/MyMakeMakerExtras.pm
+SHA1 005d753dd1cb67538ded07931423b2e7cd1e25b3 inc/my_pod2html
+SHA1 4265d65cd3f03298c84ce20bed82d3f0de58fa56 lib/Finance/Quote/Casablanca.pm
+SHA1 6d635442d61338b9e83188507adbbd3a8587b010 lib/Finance/Quote/MLC.pm
+SHA1 0f2686bf313c10494f8b724546e201fb4149d154 lib/Finance/Quote/RBA.pm
+SHA1 378b932305fb60823467c2af3c771fe3fc295a13 t/0-META-read.t
 SHA1 a343ed4dce96d05de51eed1ec065911584b96fce t/0-Test-DistManifest.t
 SHA1 bba0dc087cbe64d8f100ab77e6cef061c0bebf27 t/0-Test-Pod.t
-SHA1 e2797e7ce38b8d1526c673f61c7bfc7f2e227461 t/Casablanca.t
-SHA1 52be0f606232f005c96999ecbbcbd6a73161e3e0 t/MLC.t
-SHA1 1f2212b0029fee8c6c4a18bcf9d43569519ee4d8 t/RBA.t
+SHA1 5fa94e1e88e44064d1e6b21c88a4c9374a17bfd1 t/0-Test-Synopsis.t
+SHA1 39fb4f79da7687abc825c4ea646acb3ee9e3a342 t/0-Test-YAML-Meta.t
+SHA1 850bb901ff874fc8e2f8770095af760451845257 t/Casablanca.t
+SHA1 f12d90100778dcc71ccbba28dacdc73f587cc385 t/MLC.t
+SHA1 621028c0f0dce81dfeeffc6207704af934db956e t/RBA.t
 SHA1 92e2531103d7e8f1490fe6e370c2e9a203144b08 t/lib/MyPodParser.pm
-SHA1 23eb2aa26997f6a18cb55e6d83bd8fff8f2ec060 t/pod-fields.t
+SHA1 a82888b5caafc197628fa397ab6176eca9f3039e t/pod-fields.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.10 (GNU/Linux)
 
-iD8DBQFKuA79LFMCIV9q3ToRAjrbAKCUKvQ61rtin1qfJBZ+abkRBZZqUQCgh8Tf
-0OfaSYUCr4hzS+RE/xnSKq0=
-=E4gg
+iD8DBQFLX2whLFMCIV9q3ToRAsSYAKCt0E57psDF1pOvDjRe5oOKYOBHRgCfWF6G
+MfiNsnKrLQEm+Ol5IMxIdC0=
+=THcG
 -----END PGP SIGNATURE-----

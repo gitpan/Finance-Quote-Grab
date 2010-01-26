@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Copyright 2008, 2009 Kevin Ryde
+# Copyright 2008, 2009, 2010 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -17,6 +17,7 @@
 # You should have received a copy of the GNU General Public License along
 # with Finance-Quote-Grab.  If not, see <http://www.gnu.org/licenses/>.
 
+use 5.005;
 use strict;
 use warnings;
 use Finance::Quote::Casablanca;
@@ -25,11 +26,11 @@ use Test::More tests => 5;
 SKIP: { eval 'use Test::NoWarnings; 1'
           or skip 'Test::NoWarnings not available', 1; }
 
-my $want_version = 3;
-cmp_ok ($Finance::Quote::Casablanca::VERSION, '>=', $want_version,
-        'VERSION variable');
-cmp_ok (Finance::Quote::Casablanca->VERSION,  '>=', $want_version,
-        'VERSION class method');
+my $want_version = 4;
+is ($Finance::Quote::Casablanca::VERSION, $want_version,
+    'VERSION variable');
+is (Finance::Quote::Casablanca->VERSION,  $want_version,
+    'VERSION class method');
 { ok (eval { Finance::Quote::Casablanca->VERSION($want_version); 1 },
       "VERSION class check $want_version");
   my $check_version = $want_version + 1000;

@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Copyright 2008, 2009 Kevin Ryde
+# Copyright 2008, 2009, 2010 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -29,6 +29,7 @@ MyMakeMakerExtras::WriteMakefile
   (NAME         => 'Finance-Quote-Grab',
    ABSTRACT     => 'Fetch stock quotes from a grab bag of sources.',
    VERSION_FROM => 'lib/Finance/Quote/MLC.pm',
+   MIN_PERL_VERSION => '5.005',
    PREREQ_PM    => {
                     'Finance::Quote' => 0,
 
@@ -42,9 +43,10 @@ MyMakeMakerExtras::WriteMakefile
                     'HTTP::Response' => 0,
                     'URI::Escape'    => 0,
 
-                    'List::Util' => 0,
-                    'Test::More' => 0,
-                    'warnings'   => 0,
+                    'List::Util'   => 0,
+                    'Scalar::Util' => 0,
+                    'Test::More'   => 0,
+                    'warnings'     => 0,
                    },
 
    AUTHOR       => 'Kevin Ryde <user42@zip.com.au>',
@@ -52,16 +54,20 @@ MyMakeMakerExtras::WriteMakefile
    SIGN         => 1,
 
    META_MERGE
-   => { no_index => { directory => [ 'devel' ] },
-        resources
+   => { resources
         => { homepage
              => 'http://user42.tuxfamily.org/finance-quote-grab/index.html'
            },
         optional_features
         => { maximum_tests
              => { description => 'Have "make test" do as much as possible.',
-                  requires => { 'Pod::Parser:' => 0,
+                  requires => { 'Pod::Parser' => 0,
                                 'Test::NoWarnings' => 0,
+                              },
+                },
+             maximum_devel
+             => { description => 'Stuff used variously for development.',
+                  requires => { 'Perl6::Slurp' => 0,
                               },
                 },
            },

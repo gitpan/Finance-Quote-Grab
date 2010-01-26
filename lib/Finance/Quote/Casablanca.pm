@@ -1,4 +1,4 @@
-# Copyright 2008, 2009 Kevin Ryde
+# Copyright 2008, 2009, 2010 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -20,7 +20,7 @@ use strict;
 use warnings;
 
 use vars qw($VERSION %label_to_field);
-$VERSION = 3;
+$VERSION = 4;
 
 use constant DEBUG => 0;
 
@@ -152,7 +152,7 @@ sub resp_to_quotes {
   $quotes->{$symbol,'success'} = 1;
 
   # defaults to latin1, which is right
-  my $content = $resp->decoded_content (raise_error => 1);
+  my $content = $resp->decoded_content (raise_error => 1, charset => 'none');
   if (! $resp->is_success) {
     $quotes->{$symbol,'success'}  = 0;
     $quotes->{$symbol,'errormsg'} = $resp->status_line;
@@ -265,12 +265,12 @@ __END__
 
 Finance::Quote::Casablanca - download Casablanca Stock Exchange quotes
 
-=head1 SYNOPSIS
-
 =for Finance_Quote_Grab symbols MNG BCE
 
+=head1 SYNOPSIS
+
  use Finance::Quote;
- my $fq = Finance::Quote->new ('-defaults', 'Casablanca');
+ my $fq = Finance::Quote->new ('Casablanca');
  my %quotes = $fq->fetch('casablanca','MNG','BCE');
 
 =head1 DESCRIPTION
@@ -352,7 +352,7 @@ http://user42.tuxfamily.org/finance-quote-grab/index.html
 
 =head1 LICENCE
 
-Copyright 2008, 2009 Kevin Ryde
+Copyright 2008, 2009, 2010 Kevin Ryde
 
 Finance-Quote-Grab is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by the

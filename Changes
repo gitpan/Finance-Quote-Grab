@@ -1,4 +1,4 @@
-Copyright 2009 Kevin Ryde
+Copyright 2009, 2010 Kevin Ryde
 
 This file is part of Finance-Quote-Grab.
 
@@ -16,6 +16,9 @@ You should have received a copy of the GNU General Public License along
 with Finance-Quote-Grab.  If not, see <http://www.gnu.org/licenses/>.
 
 
+
+Version 4,  January 2010
+    - RBA web page update
 
 Version 3,  September 2009
     - Casablanca - watch out for &nbsp; converted to \240 by the HTML parser

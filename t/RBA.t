@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Copyright 2008, 2009 Kevin Ryde
+# Copyright 2008, 2009, 2010 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -29,11 +29,11 @@ use Test::More tests => 23;
 SKIP: { eval 'use Test::NoWarnings; 1'
           or skip 'Test::NoWarnings not available', 1; }
 
-my $want_version = 3;
-cmp_ok ($Finance::Quote::RBA::VERSION, '>=', $want_version,
-        'VERSION variable');
-cmp_ok (Finance::Quote::RBA->VERSION,  '>=', $want_version,
-        'VERSION class method');
+my $want_version = 4;
+is ($Finance::Quote::RBA::VERSION, $want_version,
+    'VERSION variable');
+is (Finance::Quote::RBA->VERSION,  $want_version,
+    'VERSION class method');
 { ok (eval { Finance::Quote::RBA->VERSION($want_version); 1 },
       "VERSION class check $want_version");
   my $check_version = $want_version + 1000;
@@ -45,8 +45,8 @@ cmp_ok (Finance::Quote::RBA->VERSION,  '>=', $want_version,
 # _name_extract_time
 
 foreach my $elem ([ 'Abc def',        'Abc def', '16:00' ],
-                  [ 'Abc def (12am)', 'Abc def', '0:00' ],
-                  [ 'Abc def (1am)',  'Abc def', '1:00' ],
+                  [ 'Abc def (12am)', 'Abc def', '00:00' ],
+                  [ 'Abc def (1am)',  'Abc def', '01:00' ],
                   [ 'Abc def (11am)', 'Abc def', '11:00' ],
                   [ 'Abc def (Noon)', 'Abc def', '12:00' ],
                   [ 'Abc def (12pm)', 'Abc def', '12:00' ],
@@ -55,8 +55,11 @@ foreach my $elem ([ 'Abc def',        'Abc def', '16:00' ],
                  ) {
   my ($input_name, $want_name, $want_time) = @$elem;
 
+  require Finance::Quote;
+  my $fq = Finance::Quote->new('RBA');
+
   my ($got_name, $got_time)
-    = Finance::Quote::RBA::_name_extract_time ($input_name);
+    = Finance::Quote::RBA::_name_extract_time ($fq, $input_name);
   is ($got_name, $want_name, "name from '$input_name'");
   is ($got_time, $want_time, "name from '$input_name'");
 }
@@ -69,19 +72,31 @@ foreach my $elem ([ 'Abc def',        'Abc def', '16:00' ],
 <html>
 <body>
 <table><tbody>
+<thead>
+<tr><th>Units of foreign currency per A$</th></tr>
 <tr>
-  <td>Click for earlier rates</td>
-  <td>01 Jan 2009</td>
+  <td></td>
   <td>02 Jan 2009</td>
   <td>03 Jan 2009</td>
   <td>04 Jan 2009</td>
 </tr>
-<tr>
+<tr id="USD">
   <td>United States dollar</td>
-  <td>0.6800</td>
   <td>0.6810</td>
   <td>0.6840</td>
   <td>0.6830</td>
+</tr>
+<tr id="TWI">
+  <td>Trade Weighted Index (4pm)</td>
+  <td>70</td>
+  <td>71</td>
+  <td>72</td>
+</tr>
+<tr id="FOO">
+  <td>Foo money (Noon)</td>
+  <td>100</td>
+  <td>101</td>
+  <td>102</td>
 </tr>
 </tbody></table>
 </body>
@@ -101,10 +116,15 @@ HERE
   $resp->content_type('text/html');
   $resp->{'_rc'} = 200;
 
-  my $fq = Finance::Quote->new;
+  my $fq = Finance::Quote->new('RBA');
   my %quotes;
-  Finance::Quote::RBA::_parse ($fq, $resp, \%quotes, ['AUDUSD']);
-  diag explain \%quotes;
+  Finance::Quote::RBA::_parse ($fq, $resp, \%quotes,
+                               ['AUDUSD','AUDTWI','AUDFOO']);
+  if (defined &explain) {
+    no warnings 'once';
+    local $Data::Dumper::Useqq = 1;
+    diag explain \%quotes;
+  }
   is_deeply (\%quotes,
              { "AUDUSD$;success"  => 1,
                "AUDUSD$;method"   => 'rba',
@@ -116,17 +136,45 @@ HERE
                "AUDUSD$;close"    => '0.6840',  # prev
                "AUDUSD$;date"     => '01/04/2009',
                "AUDUSD$;time"     => '16:00',
-               "AUDUSD$;currency" => 'AUDUSD'
+               "AUDUSD$;currency" => 'AUDUSD',
+
+               "AUDTWI$;success"  => 1,
+               "AUDTWI$;method"   => 'rba',
+               "AUDTWI$;source"   => 'Finance::Quote::RBA',
+               "AUDTWI$;isodate"  => '2009-01-04',
+               "AUDTWI$;name"     => 'Trade Weighted Index',
+               "AUDTWI$;copyright_url" => Finance::Quote::RBA::COPYRIGHT_URL(),
+               "AUDTWI$;last"     => '72',
+               "AUDTWI$;close"    => '71',  # prev
+               "AUDTWI$;date"     => '01/04/2009',
+               "AUDTWI$;time"     => '16:00',
+               "AUDTWI$;currency" => 'AUDTWI',
+
+               "AUDFOO$;success"  => 1,
+               "AUDFOO$;method"   => 'rba',
+               "AUDFOO$;source"   => 'Finance::Quote::RBA',
+               "AUDFOO$;isodate"  => '2009-01-04',
+               "AUDFOO$;name"     => 'Foo money',
+               "AUDFOO$;copyright_url" => Finance::Quote::RBA::COPYRIGHT_URL(),
+               "AUDFOO$;last"     => '102',
+               "AUDFOO$;close"    => '101',  # prev
+               "AUDFOO$;date"     => '01/04/2009',
+               "AUDFOO$;time"     => '12:00',
+               "AUDFOO$;currency" => 'AUDFOO',
              },
-            '_parse() on sample html');
+             '_parse() on sample html');
 
-  my @q_labels = sort map { key_to_label($_) } keys %quotes;
+  # in the parsed quotes
+  my @q_labels = map { key_to_label($_) } keys %quotes;
+  @q_labels = do { my %uniq; @uniq{@q_labels} = (); keys %uniq };
+  @q_labels = sort @q_labels;
+
+  # in the rba labels() code
   my %sub_labels = Finance::Quote::RBA::labels();
-  my %rba_labels;
-  @rba_labels{@{$sub_labels{'rba'}}} = (); # hash slice
+  my @rba_labels = @{$sub_labels{'rba'}};
+  @rba_labels = grep {$_ ne 'errormsg'} @rba_labels;
+  @rba_labels = sort @rba_labels;
 
-  delete $rba_labels{'errormsg'};
-  my @rba_labels = sort keys %rba_labels;
   is_deeply (\@q_labels,
              \@rba_labels,
              'labels() matches what _parse() returns');

@@ -1,4 +1,4 @@
-# Copyright 2004, 2005, 2006, 2007, 2008, 2009 Kevin Ryde
+# Copyright 2004, 2005, 2006, 2007, 2008, 2009, 2010 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -20,7 +20,7 @@ use strict;
 use warnings;
 
 use vars qw($VERSION);
-$VERSION = 3;
+$VERSION = 4;
 
 use constant DEBUG => 0;
 
@@ -137,7 +137,7 @@ sub resp_to_quotes {
   $quotes->{$symbol,'source'}   = __PACKAGE__;
   $quotes->{$symbol,'success'}  = 1;
 
-  my $content = $resp->decoded_content (raise_error => 1);
+  my $content = $resp->decoded_content (raise_error => 1, charset => 'none');
   if (! $resp->is_success) {
     $quotes->{$symbol,'success'}  = 0;
     $quotes->{$symbol,'errormsg'} = $resp->status_line;
@@ -282,7 +282,7 @@ http://user42.tuxfamily.org/finance-quote-grab/index.html
 
 =head1 LICENCE
 
-Copyright 2004, 2005, 2006, 2007, 2008, 2009 Kevin Ryde
+Copyright 2004, 2005, 2006, 2007, 2008, 2009, 2010 Kevin Ryde
 
 Finance-Quote-Grab is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by the

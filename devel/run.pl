@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Copyright 2008, 2009 Kevin Ryde
+# Copyright 2008, 2009, 2010 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -26,43 +26,58 @@ my $progname = $FindBin::Script;
 # use LWP::Debug '+';
 
 my $method;
-my $module;
+my @modules;
 my @symbols;
 
 if (0) {
-  $method = 'mgex';
-  $module = 'MGEX';
-  @symbols = ('ICMWZ09');
-}
-if (1) {
-  $method = 'mlc';
-  $module = 'MLC';
-  @symbols = ('MLC MasterKey Horizon 1 - Bond Portfolio,MasterKey Allocated Pension (Five Star)');
+  # Finance::Quote::Yahoo::Australia
+  # Finance::Quote::Yahoo::Europe
+  # Finance::Quote::Yahoo::USA
+  # Finance::Quote::Yahoo::Asia
+  # Finance::Quote::Yahoo::Base
+
+  $method = 'australia'; @symbols = ('BHP');
+  $method = 'europe'; @symbols = ('TSCO.L');
+  $method = 'asia'; @symbols = ('000010.SS');
+  $method = 'asia'; @symbols = ('ISPATIND.BO');
+  $method = 'usa'; @symbols = ('F');
 }
 if (0) {
+  $method = 'mgex';
+  @modules = ('MGEX');
+  @symbols = ('ICMWZ09');
+}
+if (0) {
+  $method = 'mlc';
+  @modules = ('MLC');
+  @symbols = ('MLC MasterKey Horizon 1 - Bond Portfolio,MasterKey Allocated Pension (Five Star)');
+}
+if (1) {
   $method = 'casablanca';
-  $module = 'Casablanca';
+  @modules = ('Casablanca');
   # @symbols = ('MNG', 'BCE');
   @symbols = ('BCE');
 }
 if (0) {
   $method = 'rba';
-  $module = 'RBA';
+  @modules = ('RBA');
   @symbols = ('AUDTWI', 'AUDUSD');
 }
 
 if (@ARGV && $ARGV[0] =~ /^-/) {
   my $opt = shift @ARGV;
   $method = substr $opt, 1;
-  $module = ucfirst $method;
+  @modules = ucfirst $method;
 }
 if (@ARGV) {
   @symbols = @ARGV;
 }
 
 {
+  print "module @modules symbol @symbols\n";
+
   require Finance::Quote;
-  my $q = Finance::Quote->new ($module);
+  my $q = Finance::Quote->new (@modules);
   my $quotes = $q->fetch ($method,@symbols);
 
   require Data::Dumper;

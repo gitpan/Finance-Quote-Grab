@@ -74,7 +74,7 @@ sub check_file {
   my %labels = $class->labels;
   foreach my $method (keys %labels) {
     my $code_fields = $labels{$method};
-    if (DEBUG) {
+    if (DEBUG && defined &explain) {
       diag "pod_fields  ", explain $pod_fields;
       diag "code_fields ", explain $code_fields;
     }

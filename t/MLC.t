@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Copyright 2008, 2009 Kevin Ryde
+# Copyright 2008, 2009, 2010 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -27,11 +27,11 @@ use Test::More tests => 9;
 SKIP: { eval 'use Test::NoWarnings; 1'
           or skip 'Test::NoWarnings not available', 1; }
 
-my $want_version = 3;
-cmp_ok ($Finance::Quote::MLC::VERSION, '>=', $want_version,
-        'VERSION variable');
-cmp_ok (Finance::Quote::MLC->VERSION,  '>=', $want_version,
-        'VERSION class method');
+my $want_version = 4;
+is ($Finance::Quote::MLC::VERSION, $want_version,
+    'VERSION variable');
+is (Finance::Quote::MLC->VERSION,  $want_version,
+    'VERSION class method');
 { ok (eval { Finance::Quote::MLC->VERSION($want_version); 1 },
       "VERSION class check $want_version");
   my $check_version = $want_version + 1000;
