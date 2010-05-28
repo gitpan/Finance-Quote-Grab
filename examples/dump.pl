@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Copyright 2008, 2009 Kevin Ryde
+# Copyright 2008, 2009, 2010 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -25,7 +25,7 @@
 #
 #    ./dump.pl -casablanca BCE
 #
-#    ./dump.pl -mlc 'MLC MasterKey Horizon 1 - Bond Portfolio,MasterKey Allocated Pension (Five Star)'
+#    ./dump.pl -mlc 'MLC Horizon 1 - Bond Portfolio,MasterKey Allocated Pension (Five Star)'
 #
 #    ./dump.pl -rba AUDUSD AUDTWI
 

@@ -26,7 +26,7 @@ use Test::More tests => 5;
 SKIP: { eval 'use Test::NoWarnings; 1'
           or skip 'Test::NoWarnings not available', 1; }
 
-my $want_version = 4;
+my $want_version = 5;
 is ($Finance::Quote::Casablanca::VERSION, $want_version,
     'VERSION variable');
 is (Finance::Quote::Casablanca->VERSION,  $want_version,

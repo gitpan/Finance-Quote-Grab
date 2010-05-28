@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.61.
+signed via the Module::Signature module, version 0.63.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -15,43 +15,45 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 842745cb706f8f2126506f544492f7a80dbe29b3 COPYING
-SHA1 64e6e34e96e93caf55819aaa87f33416ded1125f Changes
-SHA1 33216b4804429a5d5db7c9bd691ab268097c123a MANIFEST
-SHA1 a5702ed4c66c943b47354756b340812302d15e6f MANIFEST.SKIP
-SHA1 31a8ebe2f9e5852a9e8b9f1a881885ba92daa563 META.yml
-SHA1 4968eb27d70a84186e7120d200937b84b5438846 Makefile.PL
+SHA1 b03d04cb70618a66e0ef7c46aa459339cd788ac7 Changes
+SHA1 bd1d46e56a42c534b8cb7eadaa49a9417460e9bc MANIFEST
+SHA1 00e97fa7664a1ea29a3be5b0b2ec2b0076e002f1 MANIFEST.SKIP
+SHA1 3954c4a9e2274bc05d60fd8c883799ba5e1fc06a META.yml
+SHA1 3fe57e2b4b33815c3567afd10a73868b6289b844 Makefile.PL
 SHA1 0995abba740a8cee46feca16613099676c09ef06 README
-SHA1 b0ddcff725778c8dbe1d5599ec968bab9ee0c113 debian/changelog
+SHA1 5f5aad3f54dc818e9e3e664b0880c58e2acf61b3 debian/changelog
 SHA1 ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4 debian/compat
-SHA1 a5a00103928eb17c8ebe6e4302b0ed02418cd075 debian/control
+SHA1 9e0a76e6d4e05aa4c1e8d0c523efe8937d254ed7 debian/control
 SHA1 44a06908a8321be59990319c98d7f5a6b649ede2 debian/copyright
 SHA1 ec0682c1f734359373bf5577e8acf144bede9ac8 debian/rules
+SHA1 61652cd1568dcf2614df833eba241755eee34e89 debian/source/format
 SHA1 9bff11cdc5830f59d694ab52211973776ca68995 debian/watch
 SHA1 781e2d9585f28c565ddc7cbf6611c90d3a6a76e2 devel/cb-to-fq.pl
-SHA1 d7b4c8cce3e88f6c0083c476a14994ac26e9b2cc devel/download.t
+SHA1 c11de7bd426a08fb7b969a4b10356936334c59a9 devel/download.t
 SHA1 4498e71b55276a84719e35ef66981f5054a590fa devel/offline.pl
 SHA1 0385a487352954625863ae85576c2ebb2682a04f devel/rba-old.pl
 SHA1 a085f83e129725e422945e5f87bf0f28f232a68d devel/run.pl
-SHA1 4cccedff0c93d0b0213609bae9f7e00b89a8c7e6 examples/dump.pl
-SHA1 04b47938da4980ca0da3d5560d7826ef3139e861 inc/MyMakeMakerExtras.pm
-SHA1 005d753dd1cb67538ded07931423b2e7cd1e25b3 inc/my_pod2html
-SHA1 4265d65cd3f03298c84ce20bed82d3f0de58fa56 lib/Finance/Quote/Casablanca.pm
-SHA1 6d635442d61338b9e83188507adbbd3a8587b010 lib/Finance/Quote/MLC.pm
-SHA1 0f2686bf313c10494f8b724546e201fb4149d154 lib/Finance/Quote/RBA.pm
-SHA1 378b932305fb60823467c2af3c771fe3fc295a13 t/0-META-read.t
-SHA1 a343ed4dce96d05de51eed1ec065911584b96fce t/0-Test-DistManifest.t
-SHA1 bba0dc087cbe64d8f100ab77e6cef061c0bebf27 t/0-Test-Pod.t
-SHA1 5fa94e1e88e44064d1e6b21c88a4c9374a17bfd1 t/0-Test-Synopsis.t
-SHA1 39fb4f79da7687abc825c4ea646acb3ee9e3a342 t/0-Test-YAML-Meta.t
-SHA1 850bb901ff874fc8e2f8770095af760451845257 t/Casablanca.t
-SHA1 f12d90100778dcc71ccbba28dacdc73f587cc385 t/MLC.t
-SHA1 621028c0f0dce81dfeeffc6207704af934db956e t/RBA.t
+SHA1 ca805b94331ea83d830b15832d8849a367081e9a examples/dump.pl
+SHA1 5558edc5e44856cc82bb7648d031bfd6c64a346d inc/MyMakeMakerExtras.pm
+SHA1 63427b66eb26f013f10c835b0cf320c93361f310 inc/my_pod2html
+SHA1 54e9061f4d190a60ba773d7a957232188516dcfc lib/Finance/Quote/Casablanca.pm
+SHA1 845e3ffff105155ab14b5ce412debe8bd31ba5fb lib/Finance/Quote/MLC.pm
+SHA1 d2a26fdab3e7d761d8a9563d36bb289098fec42d lib/Finance/Quote/RBA.pm
+SHA1 d5d5c83c83918d8c97ca79e92ea840cdf277f01f t/0-META-read.t
+SHA1 37abd43b41068804ea4bb099fdd89af21be82926 t/0-Test-DistManifest.t
+SHA1 8f93fb4c8f0424a4442cc93c9a2e86342ef55281 t/0-Test-Pod.t
+SHA1 1de8f07883f6bf1a2ef79f2cb8adf1deb3f61cee t/0-Test-Synopsis.t
+SHA1 fb517c2fae5ddac559318bf6a224949115ea3129 t/0-Test-YAML-Meta.t
+SHA1 98274c8f043e7d92f89da6201acf960a00b04ebe t/0-exe-shebang.t
+SHA1 3ae00587367bab2ca07e1c906c4c6c6e3d886e4f t/Casablanca.t
+SHA1 ab4291b0cd7e6f013b52ebdaa9f60dd88ea7a88d t/MLC.t
+SHA1 ebe3bf0ed5bb4bb837357b409d36dacfd222be25 t/RBA.t
 SHA1 92e2531103d7e8f1490fe6e370c2e9a203144b08 t/lib/MyPodParser.pm
 SHA1 a82888b5caafc197628fa397ab6176eca9f3039e t/pod-fields.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.10 (GNU/Linux)
 
-iD8DBQFLX2whLFMCIV9q3ToRAsSYAKCt0E57psDF1pOvDjRe5oOKYOBHRgCfWF6G
-MfiNsnKrLQEm+Ol5IMxIdC0=
-=THcG
+iD8DBQFL/xciLFMCIV9q3ToRAuugAJ45lt8Ti4I9UQS1kyEaeqT7jlMvDgCaA4c6
+MNYegWE5vuC6ZXCVEs+mIn0=
+=dpZ5
 -----END PGP SIGNATURE-----

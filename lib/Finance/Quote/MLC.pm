@@ -20,9 +20,10 @@ use strict;
 use warnings;
 
 use vars qw($VERSION);
-$VERSION = 4;
+$VERSION = 5;
 
-use constant DEBUG => 0;
+# uncomment this to run the ### lines
+#use Smart::Comments;
 
 sub methods {
   return (mlc => \&mlc_quotes);
@@ -52,7 +53,7 @@ sub mlc_quotes {
     $ua->prepare_request ($req);
     $req->accept_decodable; # we know decoded_content() below
     $req->user_agent ("Finance::Quote::MLC/$VERSION " . $req->user_agent);
-    if (DEBUG) { print $req->as_string; }
+    ### Request: $req->as_string
 
     my $resp = $ua->request ($req);
     resp_to_quotes ($fq, $resp, \%quotes, $symbol);
@@ -61,7 +62,7 @@ sub mlc_quotes {
 }
 
 # Sample url:
-# https://www.mlc.com.au/masterkeyWeb/execute/UnitPricesWQO?openAgent&reporttype=HistoricalDateRange&product=MasterKey%20Allocated%20Pension%20%28Five%20Star%29&fund=MLC%20MasterKey%20Horizon%201%20-%20Bond%20Portfolio&begindate=07/01/2007&enddate=07/01/2008&
+# https://www.mlc.com.au/masterkeyWeb/execute/UnitPricesWQO?openAgent&reporttype=HistoricalDateRange&product=MasterKey%20Allocated%20Pension%20%28Five%20Star%29&fund=MLC%20Horizon%201%20-%20Bond%20Portfolio&begindate=19/05/2010&enddate=28/05/2010&
 #
 # The end date is today Sydney time.  Sydney timezone is +10, and +11 during
 # daylight savings; but instead of figuring when daylight savings is in
@@ -160,7 +161,8 @@ sub resp_to_quotes {
 
     $date = dmy_to_iso ($fq, $date);
     push @data, [ $date, $price ];
-    if (DEBUG) { print "  $date $price\n"; }
+    ### $date
+    ### $price
   }
   if (! @data) {
     $quotes->{$symbol,'success'}  = 0;
@@ -240,7 +242,7 @@ example
 
 =for Finance_Quote_Grab symbols
 
-    MLC MasterKey Horizon 1 - Bond Portfolio,MasterKey Allocated Pension (Five Star)
+    MLC Horizon 1 - Bond Portfolio,MasterKey Allocated Pension (Five Star)
 
 This is a lot to type, but you can usually cut and paste it from the web
 pages.  The page source in the link above has them in this form.

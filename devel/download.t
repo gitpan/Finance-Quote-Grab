@@ -18,8 +18,9 @@
 # with Finance-Quote-Grab.  If not, see <http://www.gnu.org/licenses/>.
 
 
-# Check that the supported fields described in each pod matches what the
-# code says.
+# Download symbols mentioned as examples in the POD of the various modules,
+# to see that they exist and have sensible data.
+#
 
 use 5.005;
 use strict;

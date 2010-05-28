@@ -24,9 +24,10 @@ use Scalar::Util;
 use Finance::Quote 1.15; # for isoTime()
 
 use vars qw($VERSION %name_to_symbol);
-$VERSION = 4;
+$VERSION = 5;
 
-use constant DEBUG => 0;
+# uncomment this to run the ### lines
+#use Smart::Comments;
 
 
 sub methods {
@@ -108,8 +109,8 @@ sub _parse {
       last;
     }
   }
-  if (DEBUG) { print "  col=",(defined $col ? $col : 'undef'),
-                 ", prevcol=",(defined $prevcol ? $prevcol : 'undef'),"\n"; }
+  ### $col
+  ### $prevcol
   if (! defined $col) {
     _errormsg ($quotes, $symbol_list, 'No numeric columns found');
     return;
@@ -122,10 +123,7 @@ sub _parse {
   my %seen_symbol;
 
   foreach my $row (@{$ts->rows()}) {
-    if (DEBUG) {
-      require Data::Dumper;
-      print Data::Dumper->new([$row],['row'])->Dump;
-    }
+    ### $row
 
     my $symbol = $row->[0];
     $symbol or next;       # dates row, or no id="" in <tr>

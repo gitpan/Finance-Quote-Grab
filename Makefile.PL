@@ -31,7 +31,7 @@ MyMakeMakerExtras::WriteMakefile
    VERSION_FROM => 'lib/Finance/Quote/MLC.pm',
    MIN_PERL_VERSION => '5.005',
    PREREQ_PM    => {
-                    'Finance::Quote' => 0,
+                    'Finance::Quote' => 1.15,
 
                     # Finance::Quote depends on this already actually
                     'HTML::TableExtract' => 0,

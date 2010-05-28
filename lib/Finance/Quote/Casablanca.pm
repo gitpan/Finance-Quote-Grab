@@ -20,9 +20,10 @@ use strict;
 use warnings;
 
 use vars qw($VERSION %label_to_field);
-$VERSION = 4;
+$VERSION = 5;
 
-use constant DEBUG => 0;
+# uncomment this to run the ### lines
+#use Smart::Comments;
 
 
 # ENHANCE-ME: "figure of affair" is total business turnover or some such
@@ -90,7 +91,7 @@ sub casablanca_quotes {
     $ua->prepare_request ($req);
     $req->accept_decodable; # we know decoded_content() below
     $req->user_agent ("Finance::Quote::Casablanca/$VERSION " . $req->user_agent);
-    if (DEBUG) { print $req->as_string; }
+    ### Request: $req->as_string
 
     my $resp = $ua->request ($req);
     resp_to_quotes ($fq, $symbol, $resp, \%quotes);
@@ -197,19 +198,18 @@ sub resp_to_quotes {
   foreach my $ts ($te->tables) {
     my $rows = $ts->rows;
     foreach my $row (@$rows) {
-      if (DEBUG) { require Data::Dumper;
-                   print Data::Dumper->Dumper([$row],['row']); }
+      ### $row
 
       for (my $i = 0; $i <= $#$row-1; $i += 2) {
         my $label = $row->[$i];
         if (! defined $label) { next; }
         $label = lc $label;
         $label =~ s/[\s:']//g; # collapse for matching
-        if (DEBUG) {
-          if (! exists $label_to_field{$label}) {
-            print "Unrecognised label: '$label'\n";
-          }
-        }
+        #         if (DEBUG) {
+        #           if (! exists $label_to_field{$label}) {
+        #             print "Unrecognised label: '$label'\n";
+        #           }
+        #         }
         my $field = $label_to_field{$label} or next;
 
         my $value = $row->[$i+1];
