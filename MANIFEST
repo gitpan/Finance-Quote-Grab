@@ -7,6 +7,8 @@ debian/copyright
 debian/rules
 debian/source/format
 debian/watch
+devel/Casablanca.pm
+devel/Casablanca.t
 devel/cb-to-fq.pl
 devel/download.t
 devel/offline.pl
@@ -15,7 +17,6 @@ devel/run.pl
 examples/dump.pl
 inc/my_pod2html
 inc/MyMakeMakerExtras.pm
-lib/Finance/Quote/Casablanca.pm
 lib/Finance/Quote/MLC.pm
 lib/Finance/Quote/RBA.pm
 Makefile.PL
@@ -23,15 +24,14 @@ MANIFEST			This list of files
 MANIFEST.SKIP
 README
 SIGNATURE
-t/0-exe-shebang.t
 t/0-META-read.t
 t/0-Test-DistManifest.t
 t/0-Test-Pod.t
 t/0-Test-Synopsis.t
 t/0-Test-YAML-Meta.t
-t/Casablanca.t
 t/lib/MyPodParser.pm
 t/MLC.t
+t/MyTestHelpers.pm
 t/pod-fields.t
 t/RBA.t
 META.yml                                 Module meta-data (added by MakeMaker)

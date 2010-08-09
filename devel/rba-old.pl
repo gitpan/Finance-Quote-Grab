@@ -1,3 +1,5 @@
+#!/usr/bin/perl -w
+
 # Copyright 2007, 2008, 2009, 2010 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.

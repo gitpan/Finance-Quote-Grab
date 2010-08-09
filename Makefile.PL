@@ -62,21 +62,15 @@ MyMakeMakerExtras::WriteMakefile
         => { maximum_tests
              => { description => 'Have "make test" do as much as possible.',
                   requires => { 'Pod::Parser' => 0,
-                                'Test::NoWarnings' => 0,
                               },
                 },
              maximum_devel
              => { description => 'Stuff used variously for development.',
                   requires => { 'Perl6::Slurp' => 0,
+                                'constant::defer' => 0,
+                                'Module::Load' => 0,
                               },
                 },
            },
       },
   );
-
-#------------------------------------------------------------------------------
-package MY;
-sub postamble {
-  my ($makemaker) = @_;
-  return MyMakeMakerExtras::postamble($makemaker);
-}

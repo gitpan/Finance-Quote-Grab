@@ -1,6 +1,6 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -w
 
-# Copyright 2009 Kevin Ryde
+# Copyright 2009, 2010 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -28,15 +28,17 @@ use File::Spec;
 use ExtUtils::Manifest;
 
 use Test::More;
+
+use lib 't';
+use MyTestHelpers;
+BEGIN { MyTestHelpers::nowarnings() }
+
 BEGIN {
-  # new in 5.6, so unless you've got it separately with 5.005
+  # new in 5.6, so unless got it separately with 5.005
   eval { require Pod::Parser }
     or plan skip_all => "Pod::Parser not available -- $@";
+  plan tests => 2;
 }
-plan tests => 4;
-
-SKIP: { eval 'use Test::NoWarnings; 1'
-          or skip 'Test::NoWarnings not available', 1; }
 
 use constant DEBUG => 0;
 

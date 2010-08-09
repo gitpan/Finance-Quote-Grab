@@ -1,4 +1,4 @@
-Copyright 2008, 2009 Kevin Ryde
+Copyright 2008, 2009, 2010 Kevin Ryde
 
 This file is part of Finance-Quote-Grab.
 
@@ -19,7 +19,6 @@ with Finance-Quote-Grab.  If not, see <http://www.gnu.org/licenses/>.
 
 Finance-Quote-Grab extends Finance::Quote to fetch quotes from
 
-    * Casablanca Stock Exchange
     * MLC Funds
     * Reserve Bank of Australia
 
@@ -49,7 +48,7 @@ the defaults plus MLC,
 
 You can also set the environment variable FQ_LOAD_QUOTELET like
 
-    FQ_LOAD_QUOTELET="-defaults Casablanca"
+    FQ_LOAD_QUOTELET="-defaults MLC"
     export FQ_LOAD_QUOTELET
 
 FQ_LOAD_QUOTELET is used by new() calls with no arguments.  Setting it

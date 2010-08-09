@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -w
 
 # Copyright 2008, 2009, 2010 Kevin Ryde
 
@@ -20,14 +20,16 @@
 
 use strict;
 use warnings;
+use Test::More tests => 8;
+
+use lib 't';
+use MyTestHelpers;
+BEGIN { MyTestHelpers::nowarnings() }
+
 use Finance::Quote::MLC;
 
-use Test::More tests => 9;
 
-SKIP: { eval 'use Test::NoWarnings; 1'
-          or skip 'Test::NoWarnings not available', 1; }
-
-my $want_version = 5;
+my $want_version = 6;
 is ($Finance::Quote::MLC::VERSION, $want_version,
     'VERSION variable');
 is (Finance::Quote::MLC->VERSION,  $want_version,

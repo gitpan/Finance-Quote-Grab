@@ -32,14 +32,15 @@ use Finance::Quote;
 
 use Test::More;
 
+use lib 't';
+use MyTestHelpers;
+BEGIN { MyTestHelpers::nowarnings() }
+
 # new in 5.6, so unless you've got it separately with 5.005
 eval { require Pod::Parser }
   or plan skip_all => "Pod::Parser not available -- $@";
 
 plan tests => 1;
-
-# SKIP: { eval 'use Test::NoWarnings; 1'
-#           or skip 'Test::NoWarnings not available', 1; }
 
 use constant DEBUG => 0;
 

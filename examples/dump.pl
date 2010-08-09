@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -w
 
 # Copyright 2008, 2009, 2010 Kevin Ryde
 
@@ -23,8 +23,6 @@
 # Print a dump of Finance::Quote prices downloaded for the given symbols.
 # The default is a sample, or a method and symbols can be given, like
 #
-#    ./dump.pl -casablanca BCE
-#
 #    ./dump.pl -mlc 'MLC Horizon 1 - Bond Portfolio,MasterKey Allocated Pension (Five Star)'
 #
 #    ./dump.pl -rba AUDUSD AUDTWI
@@ -33,7 +31,7 @@ use strict;
 use warnings;
 use Finance::Quote;
 
-my $method = 'casablanca';
+my $method = 'rba';
 if (@ARGV && $ARGV[0] =~ /^-/) {
   $method = substr (shift @ARGV, 1);
 }
@@ -46,7 +44,7 @@ if (! @symbols) {
 # the Finance::Quote POD explains how to set FQ_LOAD_QUOTELET to load add-on
 # modules in the defaults
 #
-my $q = Finance::Quote->new ('-defaults', 'Casablanca', 'MLC', 'RBA');
+my $q = Finance::Quote->new ('-defaults', 'MLC', 'RBA');
 my %quotes = $q->fetch ($method, @symbols);
 
 foreach my $symbol (@symbols) {

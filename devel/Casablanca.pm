@@ -1,3 +1,8 @@
+# examples/dump.pl:
+#    ./dump.pl -casablanca BCE
+#    , 'Casablanca'
+
+
 # Copyright 2008, 2009, 2010 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
@@ -20,7 +25,7 @@ use strict;
 use warnings;
 
 use vars qw($VERSION %label_to_field);
-$VERSION = 5;
+$VERSION = 6;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;
