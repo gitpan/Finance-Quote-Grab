@@ -20,7 +20,7 @@ use strict;
 use warnings;
 
 use vars qw($VERSION);
-$VERSION = 6;
+$VERSION = 7;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;
