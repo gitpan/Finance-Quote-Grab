@@ -17,6 +17,9 @@ with Finance-Quote-Grab.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
+Version 8, October 2010
+    - tests avoid Test::More::explain() parsing problem
+
 Version 7, September 2010
     - test manifest only as an author test
 

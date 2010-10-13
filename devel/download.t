@@ -36,13 +36,14 @@ use lib 't';
 use MyTestHelpers;
 BEGIN { MyTestHelpers::nowarnings() }
 
+# uncomment this to run the ### lines
+#use Smart::Comments;
+
 # new in 5.6, so unless you've got it separately with 5.005
 eval { require Pod::Parser }
   or plan skip_all => "Pod::Parser not available -- $@";
 
 plan tests => 1;
-
-use constant DEBUG => 0;
 
 
 my $toplevel_dir = File::Spec->catdir ($FindBin::Bin, File::Spec->updir);
@@ -54,23 +55,23 @@ unshift @INC, $t_lib_dir;
 require MyPodParser;
 
 my @check_files = grep {m{^lib/.*\.pm$}} keys %$manifest;
-if (DEBUG) { diag "check_files: ", explain \@check_files; }
+### @check_files
 
 my %symbols;
 foreach my $filename (@check_files) {
   my $class = $filename;
   $class =~ s{^lib/|\.pm$}{}g;
   $class =~ s{/}{::}g;
-  if (DEBUG) { diag "check_file: $filename $class"; }
+  ### check_file
+  ### $filename
+  ### $class
 
   $filename = File::Spec->rel2abs ($filename, $toplevel_dir);
   my $parser = MyPodParser->new;
   $parser->parse_from_file ($filename);
   push @{$symbols{$class}}, @{$parser->symbols_found};
 }
-if (DEBUG) {
-  diag "symbols ", explain \%symbols;
-}
+### %symbols
 
 my $good;
 my $all_good = 1;
@@ -90,7 +91,7 @@ sub download_symbols {
 
   my $fq = Finance::Quote->new ('Casablanca', 'MLC', 'RBA');
   my %quotes = $fq->fetch ($method, @$symbol_list);
-  if (DEBUG) { diag explain \%quotes }
+  ### %quotes
 
   my %numeric_fields = (p_change  => 0,
                         volume    => 0,

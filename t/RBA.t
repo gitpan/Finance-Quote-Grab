@@ -20,18 +20,20 @@
 
 use strict;
 use warnings;
-
 use Test::More tests => 22;
 
 use lib 't';
 use MyTestHelpers;
 BEGIN { MyTestHelpers::nowarnings() }
 
-use Finance::Quote::RBA;
+require Finance::Quote::RBA;
+
+# uncomment this to run the ### lines
+#use Smart::Comments;
 
 ## no critic (ProtectPrivateSubs)
 
-my $want_version = 7;
+my $want_version = 8;
 is ($Finance::Quote::RBA::VERSION, $want_version,
     'VERSION variable');
 is (Finance::Quote::RBA->VERSION,  $want_version,
@@ -122,11 +124,7 @@ HERE
   my %quotes;
   Finance::Quote::RBA::_parse ($fq, $resp, \%quotes,
                                ['AUDUSD','AUDTWI','AUDFOO']);
-  if (defined &explain) {
-    no warnings 'once';
-    local $Data::Dumper::Useqq = 1;
-    diag explain \%quotes;
-  }
+  ### %quotes
   is_deeply (\%quotes,
              { "AUDUSD$;success"  => 1,
                "AUDUSD$;method"   => 'rba',

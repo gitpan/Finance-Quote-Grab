@@ -24,28 +24,23 @@
 use 5.005;
 use strict;
 use warnings;
-use File::Spec;
+use FindBin;
 use ExtUtils::Manifest;
-
+use File::Spec;
 use Test::More;
 
 use lib 't';
 use MyTestHelpers;
 BEGIN { MyTestHelpers::nowarnings() }
 
-BEGIN {
-  # new in 5.6, so unless got it separately with 5.005
-  eval { require Pod::Parser }
-    or plan skip_all => "Pod::Parser not available -- $@";
-  plan tests => 2;
-}
+# uncomment this to run the ### lines
+#use Smart::Comments;
 
-use constant DEBUG => 0;
+# new in 5.6, so unless got it separately with 5.005
+eval { require Pod::Parser }
+  or plan skip_all => "Pod::Parser not available -- $@";
+plan tests => 2;
 
-
-require FindBin;
-my $t_lib_dir = File::Spec->catdir ($FindBin::Bin, 'lib');
-unshift @INC, $t_lib_dir;
 require MyPodParser;
 
 my $toplevel_dir = File::Spec->catdir ($FindBin::Bin, File::Spec->updir);
@@ -65,7 +60,9 @@ sub check_file {
   $class =~ s{^lib/}{};
   $class =~ s{\.pm$}{};
   $class =~ s{/}{::}g;
-  if (DEBUG) { diag "check_file: $filename $class"; }
+  ### check_file
+  ### $filename
+  ### $class
 
   $filename = File::Spec->rel2abs ($filename, $toplevel_dir);
   my $parser = MyPodParser->new;
@@ -76,10 +73,8 @@ sub check_file {
   my %labels = $class->labels;
   foreach my $method (keys %labels) {
     my $code_fields = $labels{$method};
-    if (DEBUG && defined &explain) {
-      diag "pod_fields  ", explain $pod_fields;
-      diag "code_fields ", explain $code_fields;
-    }
+    ### $pod_fields
+    ### $code_fields
 
     $pod_fields = [ sort @$pod_fields ];
     $code_fields = [ sort @$code_fields ];

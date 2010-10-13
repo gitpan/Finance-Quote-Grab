@@ -25,7 +25,7 @@ use strict;
 use warnings;
 
 use vars qw($VERSION %label_to_field);
-$VERSION = 7;
+$VERSION = 8;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;
