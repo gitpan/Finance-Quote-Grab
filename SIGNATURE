@@ -15,45 +15,45 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 842745cb706f8f2126506f544492f7a80dbe29b3 COPYING
-SHA1 f072f11c7b955f0d3512f684a62c0bb7746c5ff1 Changes
+SHA1 c908b5cdc60b8be16835cdee350d4ca5b790ccf3 Changes
 SHA1 2eda16a1ee1837ba48bf692f404eefe2a459a71b MANIFEST
-SHA1 e6e7c2904ea5d300c0ddf70fc5a80f5005229aa9 MANIFEST.SKIP
-SHA1 2419b4188675e135060f9d8811eb700a35238d40 META.yml
-SHA1 9f6cbea619c4496d6449231bf5533f88b6812bd0 Makefile.PL
+SHA1 6c771cc4b0718f7bc9c9af01889700d7bce0a8e6 MANIFEST.SKIP
+SHA1 0006440496093b9960a85a11888804340a9d3d02 META.yml
+SHA1 36786f6cb6510fc92bc1b835ed0facc013e63388 Makefile.PL
 SHA1 dc92aabd845e9a2a4030904901dee4644c6183df README
-SHA1 4af2b9359668153002e262f6ab7f5b4a2510a4d5 debian/changelog
+SHA1 5ef7a54cac8cfdfe77870f6dedc29364c9b21402 debian/changelog
 SHA1 ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4 debian/compat
-SHA1 209a7d1281a0f43afd4e46df5cb24aeb85d7727f debian/control
-SHA1 44a06908a8321be59990319c98d7f5a6b649ede2 debian/copyright
+SHA1 5d18cc3ed3aa020e2992fd720bb175016a691083 debian/control
+SHA1 dda2336533a3568fb5a58e62dd3601ae94631560 debian/copyright
 SHA1 ec0682c1f734359373bf5577e8acf144bede9ac8 debian/rules
 SHA1 61652cd1568dcf2614df833eba241755eee34e89 debian/source/format
 SHA1 9bff11cdc5830f59d694ab52211973776ca68995 debian/watch
-SHA1 b09845e45a6687d939644095df9faa71ffbe514e devel/Casablanca.pm
-SHA1 36c7ba736e59f44fbee73cb837665b936e900acc devel/Casablanca.t
+SHA1 4e9bbf8b6943a4bf6639a1a0778537bbb2ecfd4c devel/Casablanca.pm
+SHA1 91eff0497cfd4ef2e5de6f8475a3677132fb0ebf devel/Casablanca.t
 SHA1 a2e2659197c96bdd4bfc0b3cbf8021635a8a23aa devel/cb-to-fq.pl
 SHA1 dc5ca77cec504fbf7a3e7b5e6824bfc6a9f63a8a devel/download.t
 SHA1 0ad9847a388bce040e279c49f58c112ed86afac0 devel/offline.pl
 SHA1 30cb9012b7b5f7433a980e2ad79c5cae6ba4716a devel/rba-old.pl
-SHA1 b245c7a727ab7320632d67220cfdfb9d7b9a3231 devel/run.pl
-SHA1 14e461da30a862a687ce8faf237378ff6fbb8774 examples/dump.pl
-SHA1 3cf3345a9177dbe362dfc8fbf192272f4a611ca8 inc/MyMakeMakerExtras.pm
-SHA1 692a1ddc2ca6b98cac7b48ea40bc1ac1509e8ed9 inc/my_pod2html
-SHA1 c15f0d92cca564b1715f9eb58d7cd41e2baefdeb lib/Finance/Quote/MLC.pm
-SHA1 cd10454fd729c8bd1863d25404b2fa78b235f971 lib/Finance/Quote/RBA.pm
-SHA1 f1ea840be9be8cf1ff020c05e977d58bdbb117ac t/MLC.t
-SHA1 92e2531103d7e8f1490fe6e370c2e9a203144b08 t/MyPodParser.pm
-SHA1 5e5680b471811244fe93571efc23e7b6089cac3b t/MyTestHelpers.pm
-SHA1 e8fcc84c7ff9c867926a7c77450cd8d7516e4917 t/RBA.t
-SHA1 753a91068ff05fc005cf08ae6405e9a2399f5757 t/pod-fields.t
-SHA1 9127f78a0dfa04976acbb979dd7862ef59a74c58 xt/0-META-read.t
-SHA1 37abd43b41068804ea4bb099fdd89af21be82926 xt/0-Test-DistManifest.t
-SHA1 8f93fb4c8f0424a4442cc93c9a2e86342ef55281 xt/0-Test-Pod.t
-SHA1 1de8f07883f6bf1a2ef79f2cb8adf1deb3f61cee xt/0-Test-Synopsis.t
-SHA1 fb517c2fae5ddac559318bf6a224949115ea3129 xt/0-Test-YAML-Meta.t
+SHA1 6183da9a5fccf3cecf967998d807bfd006601f73 devel/run.pl
+SHA1 174e857174bf693b80a2474bf540612042055e59 examples/dump.pl
+SHA1 cf647ee28a7aaad9896d0063f8a2529919ccfcd3 inc/MyMakeMakerExtras.pm
+SHA1 7a988b2aa7ed09f1cb9029a1ef3f0e2139dca0cf inc/my_pod2html
+SHA1 ad4a6e097a1d120ae867809ebc0e8f1f12f1e0c4 lib/Finance/Quote/MLC.pm
+SHA1 c60e58d7b17ffb0359d8ebbec67649a4f4f7f076 lib/Finance/Quote/RBA.pm
+SHA1 eca6fb3499cb6bb3bff7c26fe746345d9904cc96 t/MLC.t
+SHA1 17a9be70ef734d80b03b6a0bffa4ea99dfb7baaf t/MyPodParser.pm
+SHA1 36b8eba56c87d62b1b41959187c717577dc16fa5 t/MyTestHelpers.pm
+SHA1 dabc0376126aa1806bf42c903bd7f9efa2c56e00 t/RBA.t
+SHA1 f645a550398d259d7969173b136735400ac691ea t/pod-fields.t
+SHA1 0279c9310ec528d10a2a14e602bf98f1c776cce1 xt/0-META-read.t
+SHA1 8a5e0f34131de34e584fbb1939c191a152566155 xt/0-Test-DistManifest.t
+SHA1 cc04a5fe5d8b8b38bfd56453d5d2686c8ea58783 xt/0-Test-Pod.t
+SHA1 8cc52e23427a82cfef5802bf512b13c65de2687a xt/0-Test-Synopsis.t
+SHA1 4c14845872d6eb4280e12f862d6ba2c343358c60 xt/0-Test-YAML-Meta.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.10 (GNU/Linux)
 
-iD8DBQFMti4kLFMCIV9q3ToRAlqcAJ96j0qnvDYQbEiYrasJRi/wAMFK9gCeNSxO
-tTTDQ9N1LE3y5xm+Q9z5n/w=
-=CRbk
+iD8DBQFNUI9CLFMCIV9q3ToRAqfXAJ0V0qxjQkle5uDpIK2Y+3cRsfMr/gCgmmeH
+pNBUspyd/Oa4OYebnJ1Ui74=
+=gfr3
 -----END PGP SIGNATURE-----

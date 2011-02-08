@@ -1,4 +1,4 @@
-# Copyright 2008, 2009, 2010 Kevin Ryde
+# Copyright 2008, 2009, 2010, 2011 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -31,7 +31,7 @@ Bugs: mailto:user42@zip.com.au
 
 Package: libfinance-quote-grab-perl
 Architecture: all
-Depends: perl (>= 5.005), libfinance-quote-perl (>= 1.15), libhtml-tableextract-perl, libwww-perl (>= 5.814), liburi-perl, libscalar-list-utils-perl | perl (>= 5.8), libwarnings-perl | perl-modules (>= 5.6), ${perl:Depends}, ${misc:Depends}
+Depends: perl (>= 5.005), libfinance-quote-perl (>= 1.15), libhtml-tableextract-perl, libwww-perl (>= 5.814), liburi-perl, libscalar-list-utils-perl | perl (>= 5.8), ${perl:Depends}, ${misc:Depends}
 Description: Download stock quotes from more places
  Finance-Quote-Grab extends Finance::Quote to download quotes from the
  following sources

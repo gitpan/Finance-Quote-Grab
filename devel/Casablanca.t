@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright 2008, 2009, 2010 Kevin Ryde
+# Copyright 2008, 2009, 2010, 2011 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -19,7 +19,6 @@
 
 use 5.005;
 use strict;
-use warnings;
 use Test::More tests => 4;
 
 use lib 't';
@@ -28,7 +27,7 @@ BEGIN { MyTestHelpers::nowarnings() }
 
 use Finance::Quote::Casablanca;
 
-my $want_version = 8;
+my $want_version = 9;
 is ($Finance::Quote::Casablanca::VERSION, $want_version,
     'VERSION variable');
 is (Finance::Quote::Casablanca->VERSION,  $want_version,

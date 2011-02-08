@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright 2009, 2010 Kevin Ryde
+# Copyright 2009, 2010, 2011 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -23,7 +23,6 @@
 
 use 5.005;
 use strict;
-use warnings;
 use FindBin;
 use ExtUtils::Manifest;
 use File::Spec;

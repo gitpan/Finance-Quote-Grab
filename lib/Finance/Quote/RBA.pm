@@ -1,4 +1,4 @@
-# Copyright 2007, 2008, 2009, 2010 Kevin Ryde
+# Copyright 2007, 2008, 2009, 2010, 2011 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -18,13 +18,11 @@
 
 package Finance::Quote::RBA;
 use strict;
-use warnings;
-use List::Util;
 use Scalar::Util;
 use Finance::Quote 1.15; # for isoTime()
 
 use vars qw($VERSION %name_to_symbol);
-$VERSION = 8;
+$VERSION = 9;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;
@@ -323,7 +321,7 @@ http://user42.tuxfamily.org/finance-quote-grab/index.html
 
 =head1 LICENCE
 
-Copyright 2007, 2008, 2009, 2010 Kevin Ryde
+Copyright 2007, 2008, 2009, 2010, 2011 Kevin Ryde
 
 Finance-Quote-Grab is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by the

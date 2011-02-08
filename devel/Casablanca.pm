@@ -3,7 +3,7 @@
 #    , 'Casablanca'
 
 
-# Copyright 2008, 2009, 2010 Kevin Ryde
+# Copyright 2008, 2009, 2010, 2011 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -22,10 +22,9 @@
 
 package Finance::Quote::Casablanca;
 use strict;
-use warnings;
 
 use vars qw($VERSION %label_to_field);
-$VERSION = 8;
+$VERSION = 9;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;
@@ -357,7 +356,7 @@ http://user42.tuxfamily.org/finance-quote-grab/index.html
 
 =head1 LICENCE
 
-Copyright 2008, 2009, 2010 Kevin Ryde
+Copyright 2008, 2009, 2010, 2011 Kevin Ryde
 
 Finance-Quote-Grab is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by the

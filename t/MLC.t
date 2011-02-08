@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright 2008, 2009, 2010 Kevin Ryde
+# Copyright 2008, 2009, 2010, 2011 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -19,7 +19,6 @@
 
 
 use strict;
-use warnings;
 use Test::More tests => 8;
 
 use lib 't';
@@ -29,7 +28,7 @@ BEGIN { MyTestHelpers::nowarnings() }
 use Finance::Quote::MLC;
 
 
-my $want_version = 8;
+my $want_version = 9;
 is ($Finance::Quote::MLC::VERSION, $want_version,
     'VERSION variable');
 is (Finance::Quote::MLC->VERSION,  $want_version,

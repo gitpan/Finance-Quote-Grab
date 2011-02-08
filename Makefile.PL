@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Copyright 2008, 2009, 2010 Kevin Ryde
+# Copyright 2008, 2009, 2010, 2011 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -20,7 +20,6 @@
 # aiming for 5.005 and up same as Finance::Quote itself
 use 5.005;
 use strict;
-use warnings;
 use ExtUtils::MakeMaker;
 use lib 'inc';
 use MyMakeMakerExtras;
@@ -43,34 +42,31 @@ MyMakeMakerExtras::WriteMakefile
                     'HTTP::Response' => 0,
                     'URI::Escape'    => 0,
 
-                    'List::Util'   => 0,
                     'Scalar::Util' => 0,
                     'Test::More'   => 0,
-                    'warnings'     => 0,
                    },
 
    AUTHOR       => 'Kevin Ryde <user42@zip.com.au>',
    LICENSE      => 'gpl',
    SIGN         => 1,
 
-   META_MERGE
-   => { resources
-        => { homepage
-             => 'http://user42.tuxfamily.org/finance-quote-grab/index.html'
-           },
-        optional_features
-        => { maximum_tests
-             => { description => 'Have "make test" do as much as possible.',
-                  requires => { 'Pod::Parser' => 0,
-                              },
-                },
-             maximum_devel
-             => { description => 'Stuff used variously for development.',
-                  requires => { 'Perl6::Slurp' => 0,
-                                'constant::defer' => 0,
-                                'Module::Load' => 0,
-                              },
-                },
-           },
-      },
+   META_MERGE =>
+   { resources =>
+     { homepage => 'http://user42.tuxfamily.org/finance-quote-grab/index.html'
+     },
+     optional_features =>
+     { maximum_tests =>
+       { description => 'Have "make test" do as much as possible.',
+         requires => { 'Pod::Parser' => 0,
+                     },
+       },
+       maximum_devel =>
+       { description => 'Stuff used variously for development.',
+         requires => { 'Perl6::Slurp' => 0,
+                       'constant::defer' => 0,
+                       'Module::Load' => 0,
+                     },
+       },
+     },
+   },
   );

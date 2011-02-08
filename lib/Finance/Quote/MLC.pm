@@ -1,4 +1,4 @@
-# Copyright 2004, 2005, 2006, 2007, 2008, 2009, 2010 Kevin Ryde
+# Copyright 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -17,10 +17,9 @@
 
 package Finance::Quote::MLC;
 use strict;
-use warnings;
 
 use vars qw($VERSION);
-$VERSION = 8;
+$VERSION = 9;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;
@@ -37,8 +36,8 @@ sub labels {
                     ) ]);
 }
 
-use constant COPYRIGHT_URL
-  => 'http://www.mlc.com.au/mlc/im_considering_mlc/personal/footer_tools/advice_warning_and_disclaimer';
+use constant COPYRIGHT_URL =>
+  'http://www.mlc.com.au/mlc/im_considering_mlc/personal/footer_tools/advice_warning_and_disclaimer';
 
 
 sub mlc_quotes {
@@ -284,7 +283,7 @@ http://user42.tuxfamily.org/finance-quote-grab/index.html
 
 =head1 LICENCE
 
-Copyright 2004, 2005, 2006, 2007, 2008, 2009, 2010 Kevin Ryde
+Copyright 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Kevin Ryde
 
 Finance-Quote-Grab is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by the

@@ -1,4 +1,4 @@
-# Copyright 2009 Kevin Ryde
+# Copyright 2009, 2011 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -18,13 +18,11 @@
 
 use 5.005;
 use strict;
-use warnings;
 use File::Spec;
 use ExtUtils::Manifest;
 
 package MyPodParser;
 use strict;
-use warnings;
 use Carp;
 use FindBin;
 use base 'Pod::Parser';
