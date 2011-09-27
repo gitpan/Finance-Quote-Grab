@@ -28,7 +28,7 @@ use ExtUtils::Manifest;
 use File::Spec;
 use Test::More;
 
-use lib 't';
+use lib 't','xt';
 use MyTestHelpers;
 BEGIN { MyTestHelpers::nowarnings() }
 
@@ -38,7 +38,7 @@ BEGIN { MyTestHelpers::nowarnings() }
 # new in 5.6, so unless got it separately with 5.005
 eval { require Pod::Parser }
   or plan skip_all => "Pod::Parser not available -- $@";
-plan tests => 2;
+plan tests => 3;
 
 require MyPodParser;
 

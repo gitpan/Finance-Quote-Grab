@@ -19,41 +19,51 @@
 
 
 use strict;
-use Test::More tests => 8;
+use Test;
+plan tests => 7;
 
 use lib 't';
 use MyTestHelpers;
 BEGIN { MyTestHelpers::nowarnings() }
 
-use Finance::Quote::MLC;
+require Finance::Quote::MGEX;
 
+# uncomment this to run the ### lines
+#use Smart::Comments;
 
 my $want_version = 10;
-is ($Finance::Quote::MLC::VERSION, $want_version,
-    'VERSION variable');
-is (Finance::Quote::MLC->VERSION,  $want_version,
-    'VERSION class method');
-{ ok (eval { Finance::Quote::MLC->VERSION($want_version); 1 },
+ok ($Finance::Quote::MGEX::VERSION, $want_version, 'VERSION variable');
+ok (Finance::Quote::MGEX->VERSION,  $want_version, 'VERSION class method');
+{ ok (eval { Finance::Quote::MGEX->VERSION($want_version); 1 },
+      1,
       "VERSION class check $want_version");
   my $check_version = $want_version + 1000;
-  ok (! eval { Finance::Quote::MLC->VERSION($check_version); 1 },
+  ok (! eval { Finance::Quote::MGEX->VERSION($check_version); 1 },
+      1,
       "VERSION class check $check_version");
 }
 
+#------------------------------------------------------------------------------
+# _javascript_document_write()
+
+foreach my $elem ([ q{document.write('abc')}, 'abc' ],
+                 ) {
+  my ($java, $want) = @$elem;
+
+  my $got = Finance::Quote::MGEX::_javascript_document_write ($java);
+  ok ($got, $want, "_javascript_document_write: $java");
+}
 
 #------------------------------------------------------------------------------
-# symbol_to_fund_and_product()
+# _javascript_string_unquote()
 
-foreach my $elem (['Foo Bar,Quux Xyzzy', 'Foo Bar', 'Quux Xyzzy'],
-                  # missing product is invalid, but see it splits ok
-                  ['Foo Bar', 'Foo Bar', ''],
+foreach my $elem ([ q{\\b\\t\\r\\n\\f\\'}, "\b\t\r\n\f'" ],
+                  [ q{\\101\u0042C}, "ABC" ],
                  ) {
-  my ($symbol, $want_fund, $want_product) = @$elem;
-  my ($got_fund, $got_product)
-    = Finance::Quote::MLC::symbol_to_fund_and_product ($symbol);
+  my ($str, $want) = @$elem;
 
-  is ($got_fund, $want_fund, "symbol: $symbol");
-  is ($got_product, $want_product, "symbol: $symbol");
+  my $got = Finance::Quote::MGEX::_javascript_string_unquote ($str);
+  ok ($got, $want, "_javascript_string_unquote: $str");
 }
 
 exit 0;

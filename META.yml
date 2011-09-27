@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Finance-Quote-Grab
-version:            9
+version:            10
 abstract:           Fetch stock quotes from a grab bag of sources.
 author:
     - Kevin Ryde <user42@zip.com.au>
@@ -27,9 +27,10 @@ no_index:
     directory:
         - t
         - inc
+        - xt
         - devel
         - examples
-generated_by:       ExtUtils::MakeMaker version 6.55_02
+generated_by:       ExtUtils::MakeMaker version 6.56
 meta-spec:
     url:      http://module-build.sourceforge.net/META-spec-v1.4.html
     version:  1.4
@@ -37,21 +38,22 @@ optional_features:
     maximum_devel:
         description:  Stuff used variously for development.
         requires:
-            constant::defer:    0
-            Module::Load:       0
-            Perl6::Slurp:       0
-            Pod::Simple::HTML:  0
-            warnings::unused:   0
-    maximum_tests:
-        description:  Have "make test" do as much as possible.
-        requires:
+            constant::defer:     0
+            Module::Load:        0
             Parse::CPAN::Meta:   0
-            Pod::Parser:         0
+            Perl6::Slurp:        0
+            Pod::Simple::HTML:   0
+            Smart::Comments:     0
             Test::DistManifest:  0
             Test::Pod:           1.00
             Test::Synopsis:      0
             Test::YAML::Meta:    0.15
+            warnings::unused:    0
             YAML:                0
             YAML::Syck:          0
             YAML::Tiny:          0
             YAML::XS:            0
+    maximum_tests:
+        description:  Have "make test" do as much as possible.
+        requires:
+            Pod::Parser:  0

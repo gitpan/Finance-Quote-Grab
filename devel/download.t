@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Copyright 2009, 2010 Kevin Ryde
+# Copyright 2009, 2010, 2011 Kevin Ryde
 
 # This file is part of Finance-Quote-Grab.
 #
@@ -37,7 +37,7 @@ use MyTestHelpers;
 BEGIN { MyTestHelpers::nowarnings() }
 
 # uncomment this to run the ### lines
-#use Smart::Comments;
+#use Devel::Comments;
 
 # new in 5.6, so unless you've got it separately with 5.005
 eval { require Pod::Parser }
@@ -45,12 +45,15 @@ eval { require Pod::Parser }
 
 plan tests => 1;
 
+use Data::Dumper;
+$Data::Dumper::Sortkeys = $Data::Dumper::Sortkeys = 1;
+
 
 my $toplevel_dir = File::Spec->catdir ($FindBin::Bin, File::Spec->updir);
 my $manifest_file = File::Spec->catfile ($toplevel_dir, 'MANIFEST');
 my $manifest = ExtUtils::Manifest::maniread ($manifest_file);
 
-my $t_lib_dir = File::Spec->catdir ($toplevel_dir, 't', 'lib');
+my $t_lib_dir = File::Spec->catdir ($toplevel_dir, 'xt');
 unshift @INC, $t_lib_dir;
 require MyPodParser;
 
@@ -76,6 +79,7 @@ foreach my $filename (@check_files) {
 my $good;
 my $all_good = 1;
 foreach my $class (sort keys %symbols) {
+  diag "download ",$class;
   $good = 1;
   download_symbols ($class, $symbols{$class});
   if (! $good) {
@@ -89,7 +93,7 @@ sub download_symbols {
   $class =~ m/([^:]+)$/ or die "Oops, class basename not matched";
   my $method = lc($1);
 
-  my $fq = Finance::Quote->new ('Casablanca', 'MLC', 'RBA');
+  my $fq = Finance::Quote->new ('MLC', 'RBA', 'MGEX');
   my %quotes = $fq->fetch ($method, @$symbol_list);
   ### %quotes
 
@@ -116,16 +120,21 @@ sub download_symbols {
   @numeric_fields{&$currency_fields_func()} = (); # hash slice
 
   foreach my $symbol (@$symbol_list) {
-    if (! $quotes{$symbol,'success'}) {
-      diag "$symbol no 'success' field";
+    if (! exists $quotes{$symbol,'success'}) {
+      diag "$symbol no 'success' field: ", $quotes{$symbol,'success'};
+      $good = 0;
+    } elsif (! $quotes{$symbol,'success'}) {
+      diag "$symbol 'success' false: ", $quotes{$symbol,'success'};
       $good = 0;
     }
-    if ($quotes{$symbol,'method'} ne $method) {
-      diag "$symbol wrong 'method' $quotes{$symbol,'method'}";
+    if (! defined $quotes{$symbol,'method'}
+        || $quotes{$symbol,'method'} ne $method) {
+      diag "$symbol wrong 'method': ", $quotes{$symbol,'method'};
       $good = 0;
     }
-    if ($quotes{$symbol,'source'} ne $class) {
-      diag "$symbol wrong 'source' $quotes{$symbol,'source'}";
+    if (! defined $quotes{$symbol,'source'}
+        || $quotes{$symbol,'source'} ne $class) {
+      diag "$symbol wrong 'source': ", $quotes{$symbol,'source'};
       $good = 0;
     }
   }
@@ -133,17 +142,19 @@ sub download_symbols {
     my ($symbol, $field) = split $;, $key;
     next if $field eq 'a'; # diagnostic left by $fq->store_date()
 
-    if ($value =~ /\240/) {
-      diag "'$key' '$value' latin-1 non-breaking space";
-      $good = 0;
-    }
-    if ($value =~ /^(\s|\240)/) {
-      diag "'$key' '$value' leading whitespace";
-      $good = 0;
-    }
-    if ($value =~ /(\s|\240)$/) {
-      diag "'$key' '$value' trailing whitespace";
-      $good = 0;
+    if (defined $value) {
+      if ($value =~ /\240/) {
+        diag "'$key' '$value' latin-1 non-breaking space";
+        $good = 0;
+      }
+      if ($value =~ /^(\s|\240)/) {
+        diag "'$key' '$value' leading whitespace";
+        $good = 0;
+      }
+      if ($value =~ /(\s|\240)$/) {
+        diag "'$key' '$value' trailing whitespace";
+        $good = 0;
+      }
     }
 
     if ($field =~ /_range$/ && defined $value) {

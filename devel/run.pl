@@ -28,7 +28,7 @@ my $method;
 my @modules;
 my @symbols;
 
-if (0) {
+if (1) {
   # Finance::Quote::Yahoo::Australia
   # Finance::Quote::Yahoo::Europe
   # Finance::Quote::Yahoo::USA
@@ -40,6 +40,7 @@ if (0) {
   $method = 'asia'; @symbols = ('000010.SS');
   $method = 'asia'; @symbols = ('ISPATIND.BO');
   $method = 'usa'; @symbols = ('F');
+  $method = 'tsp'; @symbols = ('C','F','G','I','S','L2020','L2030','L2040','L2050','LINCOME');
 }
 if (0) {
   $method = 'mgex';
@@ -51,7 +52,7 @@ if (0) {
   @modules = ('MLC');
   @symbols = ('MLC MasterKey Horizon 1 - Bond Portfolio,MasterKey Allocated Pension (Five Star)');
 }
-if (1) {
+if (0) {
   $method = 'casablanca';
   @modules = ('Casablanca');
   # @symbols = ('MNG', 'BCE');
@@ -73,7 +74,9 @@ if (@ARGV) {
 }
 
 {
-  print "module @modules symbol @symbols\n";
+  print "method  $method\n";
+  print "modules @modules\n";
+  print "symbols @symbols\n";
 
   require Finance::Quote;
   my $q = Finance::Quote->new (@modules);

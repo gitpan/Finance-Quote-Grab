@@ -22,7 +22,7 @@ use Scalar::Util;
 use Finance::Quote 1.15; # for isoTime()
 
 use vars qw($VERSION %name_to_symbol);
-$VERSION = 9;
+$VERSION = 10;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;
@@ -177,12 +177,12 @@ sub _errormsg {
 sub _name_extract_time {
   my ($fq, $name) = @_;
 
-  if ($name =~ m/(.*?) +\(Noon\)$/i) {
+  if ($name =~ m/(.*?) +\(Noon\)$/i) {   # Noon
     return ($1, '12:00');
-  } elsif ($name =~ m/(.*?) +\(([0-9]+)([ap]m)\)$/i) {
+  } elsif ($name =~ m/(.*?) +\(([0-9]+)([ap]m)\)$/i) {  # 9am, 4pm
     return ($1, $fq->isoTime("$2:00$3"));
   } else {
-    return ($name, '16:00');
+    return ($name, '16:00');   # default 4pm
   }
 }
 
@@ -272,7 +272,7 @@ currencies.
     AUDSDR    Special Drawing Right
 
 The "AUD" in each is a bit redundant, but it's in the style of Yahoo Finance
-and makes it clear which way around the rate is expressed.
+currency crosses and makes it clear which way around the rate is expressed.
 
 =head2 Fields
 

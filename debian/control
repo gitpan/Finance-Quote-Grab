@@ -25,13 +25,13 @@ Section: perl
 Priority: optional
 Build-Depends: cdbs, debhelper (>= 5)
 Maintainer: Kevin Ryde <user42@zip.com.au>
-Standards-Version: 3.9.1
+Standards-Version: 3.9.2
 Homepage: http://user42.tuxfamily.org/finance-quote-grab/index.html
 Bugs: mailto:user42@zip.com.au
 
 Package: libfinance-quote-grab-perl
 Architecture: all
-Depends: perl (>= 5.005), libfinance-quote-perl (>= 1.15), libhtml-tableextract-perl, libwww-perl (>= 5.814), liburi-perl, libscalar-list-utils-perl | perl (>= 5.8), ${perl:Depends}, ${misc:Depends}
+Depends: perl (>= 5.005), libfinance-quote-perl (>= 1.15), libhtml-tableextract-perl, libwww-perl (>= 5.814), libhtml-message-perl | libwww-perl (<< 6), liburi-perl, libscalar-list-utils-perl | perl (>= 5.8), ${perl:Depends}, ${misc:Depends}
 Description: Download stock quotes from more places
  Finance-Quote-Grab extends Finance::Quote to download quotes from the
  following sources

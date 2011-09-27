@@ -19,7 +19,7 @@ package Finance::Quote::MLC;
 use strict;
 
 use vars qw($VERSION);
-$VERSION = 9;
+$VERSION = 10;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;
@@ -222,7 +222,7 @@ https://www.mlc.com.au/masterkeyWeb/execute/FramesetUnitPrices
 
 =back
 
-As of June 2009 the web site terms of use,
+As of Sept 2011 the web site terms of use,
 
 =over 4
 

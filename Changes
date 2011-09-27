@@ -17,6 +17,9 @@ with Finance-Quote-Grab.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
+Version 10, September 2011
+    - new MGEX
+
 Version 9, February 2011
     - fix Makefile.PL for perl 5.6 and earlier
 
