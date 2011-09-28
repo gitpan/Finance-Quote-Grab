@@ -20,15 +20,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package Finance::Quote::Barchart;
-use 5.006;
+use 5.004;
 use strict;
-use warnings;
 use Carp;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;
 
-our $VERSION = 10;
+our $VERSION = 11;
 
 # The intraday commodity quotes pages are used, like oats
 #

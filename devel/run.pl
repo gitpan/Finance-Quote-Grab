@@ -18,6 +18,7 @@
 # with Finance-Quote-Grab.  If not, see <http://www.gnu.org/licenses/>.
 
 use strict;
+use lib 'devel/lib';
 
 use FindBin;
 my $progname = $FindBin::Script;
@@ -62,6 +63,11 @@ if (0) {
   $method = 'rba';
   @modules = ('RBA');
   @symbols = ('AUDTWI', 'AUDUSD');
+}
+if (1) {
+  $method = 'athex';
+  @modules = ('ATHEX');
+  @symbols = ('HTO', 'ALPHA');
 }
 
 if (@ARGV && $ARGV[0] =~ /^-/) {

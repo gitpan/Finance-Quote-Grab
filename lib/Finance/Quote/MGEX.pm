@@ -14,11 +14,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package Finance::Quote::MGEX;
+use 5.004;
 use strict;
-use warnings;
 
 use vars '$VERSION';
-$VERSION = 10;
+$VERSION = 11;
 
 # uncomment this to run the ### lines
 #use Devel::Comments;
@@ -449,6 +449,8 @@ sub _javascript_string_unquote {
 
 1;
 __END__
+
+=for stopwords MGEX Ryde
 
 =head1 NAME
 

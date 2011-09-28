@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -w
 
 # Copyright 2009, 2010, 2011 Kevin Ryde
 
@@ -24,7 +24,6 @@
 
 use 5.005;
 use strict;
-use warnings;
 use ExtUtils::Manifest;
 use File::Spec;
 use FindBin;

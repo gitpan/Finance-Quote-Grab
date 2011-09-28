@@ -22,7 +22,7 @@ use Scalar::Util;
 use Finance::Quote 1.15; # for isoTime()
 
 use vars qw($VERSION %name_to_symbol);
-$VERSION = 10;
+$VERSION = 11;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;

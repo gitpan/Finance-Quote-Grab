@@ -19,7 +19,7 @@ package Finance::Quote::MLC;
 use strict;
 
 use vars qw($VERSION);
-$VERSION = 10;
+$VERSION = 11;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;

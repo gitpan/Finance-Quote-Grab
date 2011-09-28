@@ -7,11 +7,14 @@ debian/copyright
 debian/rules
 debian/source/format
 debian/watch
+devel/athex-tr.pl
+devel/athex.pl
 devel/Barchart.t
 devel/Casablanca.pm
 devel/Casablanca.t
 devel/cb-to-fq.pl
 devel/download.t
+devel/lib/Finance/Quote/ATHEX.pm
 devel/lib/Finance/Quote/Barchart.pm
 devel/mgex.pl
 devel/offline.pl

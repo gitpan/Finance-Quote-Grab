@@ -24,7 +24,7 @@ package Finance::Quote::Casablanca;
 use strict;
 
 use vars qw($VERSION %label_to_field);
-$VERSION = 10;
+$VERSION = 11;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;

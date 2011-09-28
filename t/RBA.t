@@ -32,7 +32,7 @@ require Finance::Quote::RBA;
 
 ## no critic (ProtectPrivateSubs)
 
-my $want_version = 10;
+my $want_version = 11;
 is ($Finance::Quote::RBA::VERSION, $want_version,
     'VERSION variable');
 is (Finance::Quote::RBA->VERSION,  $want_version,
