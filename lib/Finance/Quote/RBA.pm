@@ -22,7 +22,7 @@ use Scalar::Util;
 use Finance::Quote 1.15; # for isoTime()
 
 use vars qw($VERSION %name_to_symbol);
-$VERSION = 11;
+$VERSION = 12;
 
 # uncomment this to run the ### lines
 #use Smart::Comments;
@@ -295,8 +295,8 @@ C<time> is always "16:00", ie. 4pm, currently.  The bank publishes TWI
 (trade weighted index) values for 10am and Noon too, but not until the end
 of the day when the 4pm value is the latest.
 
-C<currency> is the other currency, since prices are the value of an
-Australian dollar in the respective currency.  For example in "AUDUSD" it's
+C<currency> is the other currency.  Prices are the value of an Australian
+dollar in the respective currency.  For example in "AUDUSD" C<currency> is
 "USD".  C<currency> is omitted for "AUDTWI" since "TWI" is not a defined
 international currency code.  But it is returned for "AUDSDR", the IMF
 special drawing right basket.

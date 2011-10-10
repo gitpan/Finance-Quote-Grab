@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License along
 # with Finance-Quote-Grab.  If not, see <http://www.gnu.org/licenses/>.
 
-use 5.004;
+use 5.005;
 use strict;
 use Test::More tests => 21;
 

@@ -31,11 +31,42 @@ print "Finance::Quote::ATHEX version ",Finance::Quote::ATHEX->VERSION,"\n";
 use Smart::Comments;
 
 {
+  my $symbol = 'HTO';
+  require HTTP::Response;
+  my $resp = HTTP::Response->new(200, 'OK');
+  my $content = Perl6::Slurp::slurp('samples/athex/pr_Snapshot.asp?Cid=278');
+  $resp->content($content);
+  $resp->content_type('text/html');
+
+  my $fq = Finance::Quote->new;
+  my %quotes;
+  Finance::Quote::ATHEX::stockinfo_to_quotes ($fq, $resp, \%quotes, $symbol);
+  ### %quotes
+
+  exit 0;
+}
+{
+  my $symbol = 'HTO';
+  require HTTP::Response;
+  my $resp = HTTP::Response->new(200, 'OK');
+  my $content = Perl6::Slurp::slurp(</tmp/Share_SearchResults.asp.html>);
+  $resp->content($content);
+  $resp->content_type('text/html');
+
+  my $fq = Finance::Quote->new;
+  my %quotes;
+  my $cid = Finance::Quote::ATHEX::_search_resp_to_cid ($resp, \%quotes, $symbol);
+  ### $cid
+  ### %quotes
+
+  exit 0;
+}
+{
   require HTTP::Response;
   my $resp = HTTP::Response->new(200, 'OK');
   my $content = Perl6::Slurp::slurp(<samples/athex/last30-hto-27sep11.html>);
   $resp->content($content);
-  $resp->content_type('application/x-javascript');
+  $resp->content_type('text/html');
 
   my $fq = Finance::Quote->new;
   my %quotes;

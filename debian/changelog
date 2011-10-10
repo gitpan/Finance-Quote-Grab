@@ -1,5 +1,5 @@
-libfinance-quote-grab-perl (11-1) unstable; urgency=low
+libfinance-quote-grab-perl (12-1) unstable; urgency=low
 
   * Packaged version.
 
- -- Kevin Ryde <user42@zip.com.au>  Thu, 29 Sep 2011 06:47:53 +1000
+ -- Kevin Ryde <user42@zip.com.au>  Tue, 11 Oct 2011 09:16:35 +1100

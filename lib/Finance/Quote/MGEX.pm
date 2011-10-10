@@ -14,11 +14,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package Finance::Quote::MGEX;
-use 5.004;
+use 5.005;
 use strict;
 
 use vars '$VERSION';
-$VERSION = 11;
+$VERSION = 12;
 
 # uncomment this to run the ### lines
 #use Devel::Comments;
@@ -315,30 +315,31 @@ sub resp_to_quotes {
     }
 
 
-    $quotes->{$symbol,'success'}        = 1;
-    $quotes->{$symbol,'name'}           = $name;
+    $quotes->{$symbol,'success'}  = 1;
+    $quotes->{$symbol,'name'}     = $name;
+    $quotes->{$symbol,'currency'} = 'USD';
     $quotes->{$symbol,'contract_month_iso'} = $contract_month;
 
     if (defined $date) {
       $fq->store_date($quotes, $symbol, {usdate => $date});
     }
-    $quotes->{$symbol,'time'}    = $last_time;
+    $quotes->{$symbol,'time'}     = $last_time;
 
-    $quotes->{$symbol,'bid'}     = $bid;
-    $quotes->{$symbol,'ask'}     = $ask;
+    $quotes->{$symbol,'bid'}      = $bid;
+    $quotes->{$symbol,'ask'}      = $ask;
     if (defined $bid_count) {
       $quotes->{$symbol,'bid_count'} = $bid_count;
     }
     if (defined $ask_count) {
       $quotes->{$symbol,'ask_count'} = $ask_count;
     }
-    $quotes->{$symbol,'open'}    = $open;
-    $quotes->{$symbol,'high'}    = $high;
-    $quotes->{$symbol,'low'}     = $low;
-    $quotes->{$symbol,'last'}    = $last;
-    $quotes->{$symbol,'net'}     = $change;
-    $quotes->{$symbol,'close'}   = $prev;
-    $quotes->{$symbol,'success'} = 1;
+    $quotes->{$symbol,'open'}     = $open;
+    $quotes->{$symbol,'high'}     = $high;
+    $quotes->{$symbol,'low'}      = $low;
+    $quotes->{$symbol,'last'}     = $last;
+    $quotes->{$symbol,'net'}      = $change;
+    $quotes->{$symbol,'close'}    = $prev;
+    $quotes->{$symbol,'success'}  = 1;
 
     $seen_symbol{$symbol} = 1;
   }
@@ -367,7 +368,7 @@ my %qu_to_quarter = (''=>0, 0=>0, 2=>1, 5=>2, 7=>3);
 sub _dash_frac_to_decimals {
   my ($str) = @_;
 
-  $str =~ /^\+?(.+)-(.*)/p or return $str;
+  $str =~ /^\+?(.+)-(.*)/ or return $str;
   my $int = $1;
   my $frac = $2;
 

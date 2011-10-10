@@ -15,48 +15,48 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 842745cb706f8f2126506f544492f7a80dbe29b3 COPYING
-SHA1 de173c16947ba8a7d7bd6858102af3d8b9077586 Changes
+SHA1 07634dd9dfbfefbb66915d5e87e89fdd6b370b75 Changes
 SHA1 82c064d5f78f69dad39c225a300129142ea667ab MANIFEST
 SHA1 1d745ef4cc154d3b13bfee6d1048ac4135fc1aa7 MANIFEST.SKIP
-SHA1 f3b234fe8dc9be7e48c871a34f84e2e17b9ad22d META.yml
+SHA1 ad57af275be42a9cf01fc82c95ae1b33d02b99c4 META.yml
 SHA1 36786f6cb6510fc92bc1b835ed0facc013e63388 Makefile.PL
 SHA1 dc92aabd845e9a2a4030904901dee4644c6183df README
-SHA1 739b292205e2f87ceaf9870d3aeaf13ee017df0b debian/changelog
+SHA1 64775da3e09befd93dbe0068cc16bfb7cd663b15 debian/changelog
 SHA1 ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4 debian/compat
 SHA1 5edc393684d0d56aa1ea675c5cf0e4353b20a6fc debian/control
 SHA1 38c4a3aa69e4944905fe3bd242981107482542c8 debian/copyright
 SHA1 ec0682c1f734359373bf5577e8acf144bede9ac8 debian/rules
 SHA1 61652cd1568dcf2614df833eba241755eee34e89 debian/source/format
 SHA1 9bff11cdc5830f59d694ab52211973776ca68995 debian/watch
-SHA1 7a8c3a078a45de74b01ddf5da1e4aa37e460c442 devel/Barchart.t
-SHA1 f1f8125cf39f2e92c2dd3b353207a96066fa245a devel/Casablanca.pm
-SHA1 c351398bfd086fb753fcf5a72fdeabc4026b4290 devel/Casablanca.t
+SHA1 14dc2452eb884e95cb9b1c874c536f2377c86031 devel/Barchart.t
+SHA1 b8bc2827cb17a2a16dbe6c3e5850429ca8de711a devel/Casablanca.pm
+SHA1 9f98bf647ea4c3bb167e3e1808a8eef85fb04a33 devel/Casablanca.t
 SHA1 41283cc08292f6ac5274b729afdebf94d23d5991 devel/athex-tr.pl
-SHA1 82cf618f79cbde84d83d1bcc24e37706e8408dd9 devel/athex.pl
+SHA1 03a143a42c3232c8f721d5cca3ea6a209dd78840 devel/athex.pl
 SHA1 73b8dc9c895b87e76e69b4410222577313558e10 devel/cb-to-fq.pl
 SHA1 4954803fa91e90f45f7139293ecfe41f45eda97e devel/download.t
-SHA1 56c51d1442b4f4390225c64fb8233d3825ffe277 devel/lib/Finance/Quote/ATHEX.pm
-SHA1 243ab33ad4a5da39ab5e79d1f614ed99a8624820 devel/lib/Finance/Quote/Barchart.pm
+SHA1 6c8fc78179aa654f6af36a00dee6d04e35546860 devel/lib/Finance/Quote/ATHEX.pm
+SHA1 11ee1ac75eafe0944940ca176d88f7bc079d4d2b devel/lib/Finance/Quote/Barchart.pm
 SHA1 edcd7d68549fc4d779087f9e5b2b3b4249f5c1c9 devel/mgex.pl
 SHA1 46fd96edd74b763c6be8cb7deacbbe6d099ec704 devel/offline.pl
 SHA1 30cb9012b7b5f7433a980e2ad79c5cae6ba4716a devel/rba-old.pl
 SHA1 4889e9d38dad7c4cdde389b701d68a97b988b31a devel/run.pl
 SHA1 174e857174bf693b80a2474bf540612042055e59 examples/dump.pl
-SHA1 fec43eef57abc0e56810e7b2b5cfb4f5bf11323f inc/MyMakeMakerExtras.pm
+SHA1 24a289edcdf4e594419f9da16f32b1f36b042635 inc/MyMakeMakerExtras.pm
 SHA1 7a988b2aa7ed09f1cb9029a1ef3f0e2139dca0cf inc/my_pod2html
-SHA1 b89e7fb68162615f69575d20e8810af5af92080f lib/Finance/Quote/MGEX.pm
-SHA1 6c85997e3789dce1c7077072a2e47925cd19d8a7 lib/Finance/Quote/MLC.pm
-SHA1 2d026a4f91478a306ad5c3b79f0d2912f61f810f lib/Finance/Quote/RBA.pm
-SHA1 c86641a8c08e2a289c9076e557586343817f1b47 t/MGEX.t
-SHA1 4ce567e354e434dddf0ed5712df60936684c4b03 t/MLC.t
+SHA1 0abb57f03dc04b9947276d8de5ef3077d71c1d6d lib/Finance/Quote/MGEX.pm
+SHA1 6a088758e9c61c15f1fd88413dcf16a6aa88d693 lib/Finance/Quote/MLC.pm
+SHA1 daff63811bc62cf728bd16672dff3ee660bd0d3a lib/Finance/Quote/RBA.pm
+SHA1 6b6e48c1656171bd704a978b3ee18920afce1a67 t/MGEX.t
+SHA1 42ab0b00341c35369e9371bdac4d5ffcbaffa9f1 t/MLC.t
 SHA1 7cbfd9bf15948b19f71c0f54f11b607c052d8385 t/MyTestHelpers.pm
-SHA1 f3633b60855ec21700ac5d2680f63314563f5589 t/RBA.t
+SHA1 dad6e70edf0b4b58e157bb213e35c59cded7ae55 t/RBA.t
 SHA1 0279c9310ec528d10a2a14e602bf98f1c776cce1 xt/0-META-read.t
 SHA1 219395eb91b03829e6f14db4ebd57d88ea972e61 xt/0-Test-ConsistentVersion.t
 SHA1 8a5e0f34131de34e584fbb1939c191a152566155 xt/0-Test-DistManifest.t
 SHA1 cc04a5fe5d8b8b38bfd56453d5d2686c8ea58783 xt/0-Test-Pod.t
 SHA1 8cc52e23427a82cfef5802bf512b13c65de2687a xt/0-Test-Synopsis.t
-SHA1 194f76a77d4b022a8b707932d3a45be310400360 xt/0-Test-YAML-Meta.t
+SHA1 0881a76574d9474ebc2468a5d1d8e486ca77d525 xt/0-Test-YAML-Meta.t
 SHA1 d1d6dc2ff925e7ba5c014ce1361e6d097d061f2a xt/0-file-is-part-of.t
 SHA1 daba2840c7f128371d42516619a0e04fee2f5ff4 xt/0-no-debug-left-on.t
 SHA1 17a9be70ef734d80b03b6a0bffa4ea99dfb7baaf xt/MyPodParser.pm
@@ -64,7 +64,7 @@ SHA1 f28170662c2891c3c75eb1da3704bcca95b7198f xt/pod-fields.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.11 (GNU/Linux)
 
-iD8DBQFOg4kmLFMCIV9q3ToRAqUKAKCA7eBBaPLeUOX/gwRjO0zvZJLvJACglFOT
-C4NliPO7V2sUVn6RFsRkr7c=
-=dpod
+iD8DBQFOk3s+LFMCIV9q3ToRAnKrAKCGcNfyfaCJ1lvqUHRs3EveD3bs+wCfV3vg
+tIR4uNOf4nlILuRINs7Nmyg=
+=ctjd
 -----END PGP SIGNATURE-----

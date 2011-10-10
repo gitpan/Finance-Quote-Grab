@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Finance-Quote-Grab
-version:            11
+version:            12
 abstract:           Fetch stock quotes from a grab bag of sources.
 author:
     - Kevin Ryde <user42@zip.com.au>
@@ -39,6 +39,7 @@ optional_features:
         description:  Stuff used variously for development.
         requires:
             constant::defer:     0
+            Devel::Comments:     0
             Module::Load:        0
             Parse::CPAN::Meta:   0
             Perl6::Slurp:        0
